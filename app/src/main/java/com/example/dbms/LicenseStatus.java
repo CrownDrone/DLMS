@@ -12,34 +12,25 @@ import android.widget.Spinner;
 
 public class LicenseStatus extends AppCompatActivity {
 
-    private Spinner driver,violation,paymentstatus;
-    private Button logout;
-    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
+    private Button lBack3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license_status);
 
-       /* driver  = findViewById(R.id.Driver);
-        String[] items = new String[]{"John", "Taylor"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        driver.setAdapter(adapter);
+        lBack3 = (Button) findViewById(R.id.lBack3);
 
-        violation  = findViewById(R.id.violation);
-        String[] items1 = new String[]{"Speeding", "Traffic Light Violation"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
-        violation.setAdapter(adapter1);
-
-        paymentstatus  = findViewById(R.id.paymentstatus);
-        String[] items2 = new String[]{"Completed", "Pending"};
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
-        paymentstatus.setAdapter(adapter2); */
-
-
+        lBack3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
     }
 
-    private void logout(){
-        Intent main = new Intent(this, MainActivity.class);
+    private void back(){
+        Intent main = new Intent(this, Homepage.class);
         startActivity(main);
     }
 

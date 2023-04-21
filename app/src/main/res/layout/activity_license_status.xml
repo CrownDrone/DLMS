@@ -5,4 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#b3ffd9"
-    tools:context=".LicenseStatus"/>
+    tools:context=".LicenseStatus">
+
+    <Button
+        android:id="@+id/lBack3"
+        android:layout_width="114dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="40dp"
+        android:text="back"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,7 +63,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPersonName"
-                android:text="Driver List"
+                android:text="Add Driver"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
@@ -200,10 +200,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <ImageView
         android:id="@+id/imageView6"
