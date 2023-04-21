@@ -34,10 +34,10 @@
         android:background="#861D3F73"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.566">
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintVertical_bias="0.095">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -94,7 +94,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPersonName"
-                android:text="License Status"
+                android:text="License List"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
@@ -179,13 +179,12 @@
             app:layout_constraintVertical_bias="0.962" />"
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="295dp"
-        android:layout_height="72dp"
+        android:layout_width="282dp"
+        android:layout_height="56dp"
         android:autoText="false"
         android:background="@null"
         android:ems="10"
