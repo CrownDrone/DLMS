@@ -14,6 +14,15 @@
         android:theme="@style/Theme.DBMS"
         tools:targetApi="31">
         <activity
+            android:name=".account"
+            android:exported="false" />
+        <activity
+            android:name=".LicenseStatus"
+            android:exported="false" />
+        <activity
+            android:name=".Drivers"
+            android:exported="false" />
+        <activity
             android:name=".Homepage"
             android:exported="false" />
         <activity

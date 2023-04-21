@@ -55,7 +55,7 @@
             app:layout_constraintVertical_bias="0.583">
 
             <Button
-                android:id="@+id/profile"
+                android:id="@+id/Driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,7 +117,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/violations"
+                android:id="@+id/account"
                 android:layout_width="209dp"
                 android:layout_height="46dp"
                 android:layout_weight="1"
