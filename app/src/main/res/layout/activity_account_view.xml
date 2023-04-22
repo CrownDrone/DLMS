@@ -70,9 +70,10 @@
             android:textSize="19dp"
             app:layout_constraintBottom_toTopOf="@+id/licenseList"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toEndOf="@+id/textView19"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.941" />
+            app:layout_constraintVertical_bias="0.8" />
 
         <Button
             android:id="@+id/lBack3"
@@ -88,12 +89,13 @@
 
         <ListView
             android:id="@+id/licenseList"
-            android:layout_width="409dp"
-            android:layout_height="450dp"
+            android:layout_width="397dp"
+            android:layout_height="462dp"
             android:divider="#6EA5E8"
             android:dividerHeight="4px"
             app:layout_constraintBottom_toTopOf="@+id/lBack3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
