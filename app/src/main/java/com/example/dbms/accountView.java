@@ -2,7 +2,9 @@ package com.example.dbms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,6 +24,14 @@ public class accountView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_view);
 
+        lBack3 = (Button) findViewById(R.id.lBack3);
+
+        lBack3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
 
         licenseListA = (ListView)findViewById(R.id.licenseList);
         list.add("Fname mName Lname - AD00002");
@@ -44,5 +54,10 @@ public class accountView extends AppCompatActivity {
         adapter = new ArrayAdapter(accountView.this, R.layout.list_orange_div, R.id.list_content,list);
         licenseListA.setAdapter(adapter);
 
+    }
+
+    private void back(){
+        Intent main = new Intent(this, account.class);
+        startActivity(main);
     }
 }
