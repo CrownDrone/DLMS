@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.login);
         driver = (Button) findViewById(R.id.Driver);
-        license = (Button) findViewById(R.id.license);
+        //license = (Button) findViewById(R.id.license);
         account = (Button) findViewById(R.id.account);
 
         login.setOnClickListener(new View.OnClickListener() {

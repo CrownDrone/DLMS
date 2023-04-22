@@ -101,7 +101,7 @@ public class Drivers extends AppCompatActivity {
 
 
         String[] status = new String[] {
-                "Status","Active", "Expired", "Custody"
+                "License Status","Active", "Expired", "Custody"
         };
         Spinner status1 = (Spinner) findViewById(R.id.Status);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
@@ -112,7 +112,7 @@ public class Drivers extends AppCompatActivity {
         status1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(status1.getSelectedItem() == "Status")
+                if(status1.getSelectedItem() == "License Status")
                 {
 
                     //Do nothing.
