@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class account extends AppCompatActivity {
-    private Button aBack,viewBTN;
+    private Button aBack;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,6 @@ public class account extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         aBack = (Button) findViewById(R.id.aBack);
-        viewBTN = (Button) findViewById(R.id.viewBTN);
 
         aBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,12 +27,6 @@ public class account extends AppCompatActivity {
             }
         });
 
-        viewBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
 
         String[] gender = new String[] {"Male", "Female"};
 
@@ -49,8 +42,5 @@ public class account extends AppCompatActivity {
         Intent main = new Intent(this, Homepage.class);
         startActivity(main);
     }
-    private void view(){
-        Intent main = new Intent(this, accountView.class);
-        startActivity(main);
-    }
+
 }
