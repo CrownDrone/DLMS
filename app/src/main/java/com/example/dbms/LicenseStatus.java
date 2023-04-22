@@ -34,6 +34,7 @@ public class LicenseStatus extends AppCompatActivity {
                 back();
             }
         });
+
         licenseListA = (ListView)findViewById(R.id.licenseList);
         list.add("Lname, Fname - X00-00-000000 - ACTIVE");
         list.add("Lname, Fname - X00-00-000002 - CUSTODY");
