@@ -273,6 +273,7 @@ public class Drivers extends AppCompatActivity {
 
     public void openDatePicker(View view)
     {
+
         datePickerDialog.show();
     }
 
