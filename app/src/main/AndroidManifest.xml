@@ -14,13 +14,19 @@
         android:theme="@style/Theme.DBMS"
         tools:targetApi="31">
         <activity
+            android:name=".CustomListView1"
+            android:exported="false" />
+        <activity
+            android:name=".CustomListView"
+            android:exported="false" />
+        <activity
+            android:name=".LicenseView"
+            android:exported="false" />
+        <activity
             android:name=".accountView"
             android:exported="false" />
         <activity
             android:name=".account"
-            android:exported="false" />
-        <activity
-            android:name=".LicenseStatus"
             android:exported="false" />
         <activity
             android:name=".Drivers"

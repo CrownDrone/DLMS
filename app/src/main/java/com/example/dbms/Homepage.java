@@ -62,7 +62,7 @@ public class Homepage extends AppCompatActivity {
     }
 
     private void license(){
-        Intent main = new Intent(this, LicenseStatus.class);
+        Intent main = new Intent(this, LicenseView.class);
         startActivity(main);
     }
     private void driver(){
