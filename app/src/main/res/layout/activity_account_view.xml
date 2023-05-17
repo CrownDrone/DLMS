@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".accountView">
 
     <Button
@@ -20,6 +21,7 @@
         android:layout_width="415dp"
         android:layout_height="44dp"
         android:layout_marginTop="10dp"
+        android:background="#f0f0f5"
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         app:queryHint="Search Name"

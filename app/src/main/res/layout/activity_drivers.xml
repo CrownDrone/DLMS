@@ -71,7 +71,6 @@
                 android:layout_width="127dp"
                 android:layout_height="30dp"
                 android:background="@color/white"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.909"
@@ -172,7 +171,7 @@
                 android:layout_width="254dp"
                 android:layout_height="35dp"
                 android:backgroundTint="@color/white"
-                android:onClick="openDatePicker"
+                android:onClick="openDatePicker1"
                 android:text="license Expiry"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"

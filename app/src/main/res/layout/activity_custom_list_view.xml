@@ -22,7 +22,6 @@
         android:layout_height="29dp"
         android:layout_weight="1"
         android:textSize="16dp"
-
         android:textAlignment="center"
         android:textColor="@color/black"
         android:text="TextView" />

@@ -28,7 +28,7 @@ public class LicenseView extends AppCompatActivity {
 
     String drivernames[] = {"John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine"};
     String licenses[] = {"X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002"};
-    String statuses[] = {"ACTIVE", "CUSTODY", "EXPIRED","ACTIVE", "CUSTODY", "EXPIRED","ACTIVE", "CUSTODY", "EXPIRED"};
+    String statuses[] = {"Active", "Custody", "Expired","Active", "Custody", "Expired","Active", "Custody", "Expired"};
 
     ListView listview;
 
