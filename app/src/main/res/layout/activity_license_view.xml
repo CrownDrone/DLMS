@@ -15,15 +15,18 @@
         android:layout_marginLeft="5dp"
         />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="415dp"
         android:layout_height="44dp"
-        android:background="#CED6DE"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:windowSoftInputMode="adjustResize"
+        app:queryHint="Search Name"
+        app:iconifiedByDefault="false"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
