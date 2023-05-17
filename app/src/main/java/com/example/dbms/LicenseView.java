@@ -1,5 +1,7 @@
 package com.example.dbms;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -7,15 +9,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class LicenseView extends AppCompatActivity {
 
@@ -63,9 +70,34 @@ public class LicenseView extends AppCompatActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                customAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                customAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
     }
 
-    public class CustomAdapter extends BaseAdapter{
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.searchView){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public class CustomAdapter extends BaseAdapter implements Filterable {
 
         private List<ItemsModel> itemsModelList;
         private List<ItemsModel> itemsModelListFilter;
@@ -106,6 +138,42 @@ public class LicenseView extends AppCompatActivity {
             txtView2.setText(itemsModelListFilter.get(i).getStatus());
 
             return view;
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+
+                    FilterResults filterResults = new FilterResults();
+
+                    if(charSequence == null || charSequence.length() == 0){
+                        filterResults.count = itemsModelList.size();
+                        filterResults.values = itemsModelList;
+                    } else{
+                        String searchStr = charSequence.toString();
+                        List<ItemsModel> resultData = new ArrayList<>();
+
+                        for(ItemsModel itemsModel:itemsModelList){
+                            if(itemsModel.getDrivername().contains(searchStr) ||itemsModel.getLicense().contains(searchStr) || itemsModel.getStatus().contains(searchStr) ){
+                                resultData.add(itemsModel);
+                            }
+                            filterResults.count = resultData.size();
+                            filterResults.values = resultData;
+                        }
+                    }
+
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    itemsModelListFilter = (List<ItemsModel>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
+            return filter;
         }
     }
 

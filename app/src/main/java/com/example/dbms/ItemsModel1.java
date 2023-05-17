@@ -11,14 +11,17 @@ public class ItemsModel1 {
 
 
     public String getAccountname() {
+
         return accountname;
     }
 
     public void setAccountname(String accountname) {
+
         this.accountname = accountname;
     }
 
     public String getAccountid() {
+
         return accountid;
     }
 
