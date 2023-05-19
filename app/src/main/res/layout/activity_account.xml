@@ -68,7 +68,7 @@
             app:layout_constraintVertical_bias="0.542">
 
             <EditText
-                android:id="@+id/firstname"
+                android:id="@+id/fullname"
                 android:layout_width="233dp"
                 android:layout_height="34dp"
                 android:background="@color/white"
@@ -111,7 +111,7 @@
                 app:layout_constraintVertical_bias="0.216" />
 
             <EditText
-                android:id="@+id/editTextNumber4"
+                android:id="@+id/licenseno"
                 android:layout_width="154dp"
                 android:layout_height="37dp"
                 android:background="@color/white"
@@ -126,7 +126,7 @@
                 app:layout_constraintVertical_bias="0.682" />
 
             <EditText
-                android:id="@+id/editTextNumber5"
+                android:id="@+id/contactno"
                 android:layout_width="185dp"
                 android:layout_height="36dp"
                 android:background="@color/white"
@@ -141,7 +141,7 @@
                 app:layout_constraintVertical_bias="0.57" />
 
             <EditText
-                android:id="@+id/editTextNumber8"
+                android:id="@+id/accountno"
                 android:layout_width="185dp"
                 android:layout_height="36dp"
                 android:background="@color/white"
@@ -156,7 +156,7 @@
                 app:layout_constraintVertical_bias="0.681" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/age"
                 android:layout_width="95dp"
                 android:layout_height="31dp"
                 android:background="@color/white"
@@ -171,7 +171,7 @@
                 app:layout_constraintVertical_bias="0.479" />
 
             <EditText
-                android:id="@+id/editTextNumber6"
+                android:id="@+id/agencycode"
                 android:layout_width="111dp"
                 android:layout_height="30dp"
                 android:background="@color/white"
@@ -272,7 +272,7 @@
                 app:layout_constraintVertical_bias="0.891" />
 
             <EditText
-                android:id="@+id/firstname4"
+                android:id="@+id/email"
                 android:layout_width="171dp"
                 android:layout_height="37dp"
                 android:background="@color/white"

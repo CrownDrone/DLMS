@@ -1,6 +1,8 @@
 package com.example.dbms;
 
-public class ItemsModel  {
+import java.io.Serializable;
+
+public class ItemsModel implements Serializable {
     String drivername;
     String license;
     String status;

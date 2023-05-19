@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,7 +23,12 @@ public class Drivers extends AppCompatActivity {
     private Button dBack,dateButton,licenseExp;
     private DatePickerDialog datePickerDialog,datePickerDialog1;
 
-    @SuppressLint("MissingInflatedId")
+    private EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
+    Spinner blood,status1,eye,national;
+
+    ItemsModel itemsModel;
+
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,9 @@ public class Drivers extends AppCompatActivity {
         licenseExp = findViewById(R.id.licenseEx);
         licenseExp.setText(getTodaysDate1());
 
+        name = findViewById(R.id.Fdrivername);
+        licenseno = findViewById(R.id.licenseno);
+        status1 = (Spinner) findViewById(R.id.Status);
 
         String[] gender = new String[] {
                 "Sex","Male", "Female"
@@ -73,7 +82,7 @@ public class Drivers extends AppCompatActivity {
         String[] bloodType = new String[] {
                 "Blood Type","A", "A+", "A-","B", "B+", "B-","AB", "AB+", "AB-","O", "O+", "O-",
         };
-        Spinner blood = (Spinner) findViewById(R.id.BloodType);
+        blood = (Spinner) findViewById(R.id.BloodType);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, bloodType);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -89,7 +98,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, blood.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, blood.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -104,7 +113,7 @@ public class Drivers extends AppCompatActivity {
         String[] status = new String[] {
                 "License Status","Active", "Expired", "Custody"
         };
-        Spinner status1 = (Spinner) findViewById(R.id.Status);
+        status1 = (Spinner) findViewById(R.id.Status);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, status);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,7 +129,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, status1.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, status1.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -131,11 +140,10 @@ public class Drivers extends AppCompatActivity {
             }
         });
 
-
         String[] eyeColor = new String[] {
                 "Eye Color","Brown", "Black", "Blue","Gray", "Hazel", "Amber",
         };
-        Spinner eye = (Spinner) findViewById(R.id.eyecolor);
+         eye = (Spinner) findViewById(R.id.eyecolor);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, eyeColor);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -151,7 +159,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, eye.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(Drivers.this, eye.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -165,7 +173,7 @@ public class Drivers extends AppCompatActivity {
         String[] nationality = new String[] {
                 "Nationality","Filipino", "Spanish", "Finnish","Chinese", "Japanese", "Korean","American"
         };
-        Spinner national = (Spinner) findViewById(R.id.nationality);
+         national = (Spinner) findViewById(R.id.nationality);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, nationality);
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -181,7 +189,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, national.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, national.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -198,6 +206,29 @@ public class Drivers extends AppCompatActivity {
                 back();
             }
         });
+
+
+        Intent intent = getIntent();
+
+        if(intent.getExtras() != null){
+            itemsModel = (ItemsModel) intent.getSerializableExtra("item");
+
+            name.setText(itemsModel.getDrivername());
+            licenseno.setText(itemsModel.getLicense());
+
+            if(itemsModel.getStatus().equals("Active")){
+                status1.setSelection(1);
+            } else if (itemsModel.getStatus().equals("Expired")){
+                status1.setSelection(2);
+            } else if (itemsModel.getStatus().equals("Custody")){
+                status1.setSelection(3);
+            } else {
+                status1.setSelection(0);
+            }
+
+        }
+
+
     }
 
 

@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +57,6 @@ public class LicenseView extends AppCompatActivity {
 
             ItemsModel itemsModel = new ItemsModel(drivernames[i],licenses[i],statuses[i]);
             listitems.add(itemsModel);
-
 
         }
 
@@ -136,6 +136,13 @@ public class LicenseView extends AppCompatActivity {
             txtView.setText(itemsModelListFilter.get(i).getDrivername());
             txtView1.setText(itemsModelListFilter.get(i).getLicense());
             txtView2.setText(itemsModelListFilter.get(i).getStatus());
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(LicenseView.this, Drivers.class).putExtra("item",itemsModelListFilter.get(i)));
+                }
+            });
 
             return view;
         }

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +21,13 @@ import java.util.Calendar;
 public class account extends AppCompatActivity {
     private Button aBack,dateButton,aBack2;
     private DatePickerDialog datePickerDialog;
+
+    private EditText fullname,address,agencycode,age,email,contactno,accountID,licenseno;
+
+    Spinner s, national;
+
+    ItemsModel1 itemsModel1;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,10 @@ public class account extends AppCompatActivity {
         initDatePicker();
         dateButton = findViewById(R.id.birthday);
         dateButton.setText(getTodaysDate());
+
+        fullname = findViewById(R.id.fullname);
+        accountID = findViewById(R.id.accountno);
+
 
         aBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +61,7 @@ public class account extends AppCompatActivity {
         String[] gender = new String[] {
                 "Sex","Male", "Female"
         };
-        Spinner s = (Spinner) findViewById(R.id.gender);
+        s = (Spinner) findViewById(R.id.gender);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, gender);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,7 +92,7 @@ public class account extends AppCompatActivity {
         String[] nationality = new String[] {
                 "Nationality","Filipino", "Spanish", "Finnish","Chinese", "Japanese", "Korean","American"
         };
-        Spinner national = (Spinner) findViewById(R.id.nationality);
+        national = (Spinner) findViewById(R.id.nationality);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, nationality);
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,6 +118,17 @@ public class account extends AppCompatActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+
+        if(intent.getExtras() != null){
+            itemsModel1 = (ItemsModel1) intent.getSerializableExtra("item");
+
+            fullname.setText(itemsModel1.getAccountname());
+            accountID.setText(itemsModel1.getAccountid());
+
+        }
+
 
     }
 

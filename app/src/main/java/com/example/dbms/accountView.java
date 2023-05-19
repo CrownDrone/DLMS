@@ -136,6 +136,14 @@ public class accountView extends AppCompatActivity {
             txtView.setText(itemsModelListFilter.get(i).getAccountname());
             txtView1.setText(itemsModelListFilter.get(i).getAccountid());
 
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(accountView.this, account.class).putExtra("item",itemsModelListFilter.get(i)));
+                }
+            });
+
+
             return view;
         }
 

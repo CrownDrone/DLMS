@@ -1,6 +1,8 @@
 package com.example.dbms;
 
-public class ItemsModel1 {
+import java.io.Serializable;
+
+public class ItemsModel1 implements Serializable {
     String accountname;
     String accountid;
 
