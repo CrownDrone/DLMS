@@ -83,7 +83,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, genders.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, genders.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -115,7 +115,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                   // Toast.makeText(Drivers.this, blood.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, blood.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -147,7 +147,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                   // Toast.makeText(Drivers.this, status1.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, status1.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -179,7 +179,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                    //Toast.makeText(Drivers.this, eye.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(Drivers.this, eye.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -211,7 +211,7 @@ public class Drivers extends AppCompatActivity {
                 }
                 else{
 
-                   // Toast.makeText(Drivers.this, national.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Drivers.this, national.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -277,20 +277,22 @@ public class Drivers extends AppCompatActivity {
         String dlcodes = dlcode.getText().toString().trim();
         String conditionss = conditions.getText().toString().trim();
 
-
-        if(names.isEmpty() || licensenos.isEmpty()||weightt.isEmpty() || heightt.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||dlcodes.isEmpty() ||
-                statuss.equals("License Status") || genderss.equals("Sex")||bloods.equals("Blood Type")|| nationals.equals("Nationality")||eyes.equals("Eye Color")){
-            Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
-
-        } else{
-
-            Toast.makeText(Drivers.this, "Added", Toast.LENGTH_LONG).show();
-
+            if(names.isEmpty() || licensenos.isEmpty()||weightt.isEmpty() || heightt.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||dlcodes.isEmpty()){
+                Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
+            } else if (genderss.equals("Sex")) {
+                Toast.makeText(Drivers.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
+            } else if (bloods.equals("Blood Type")) {
+                Toast.makeText(Drivers.this, "Please enter your Blood Type", Toast.LENGTH_SHORT).show();
+            } else if (statuss.equals("License Status")) {
+                Toast.makeText(Drivers.this, "Please enter your License Status", Toast.LENGTH_SHORT).show();
+            } else if (eyes.equals("Eye Color")) {
+                Toast.makeText(Drivers.this, "Please enter your Eye Color", Toast.LENGTH_SHORT).show();
+            } else if (nationals.equals("Nationality")) {
+                Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
+             }else{
+                Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
 
     private String getTodaysDate()
     {

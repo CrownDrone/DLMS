@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
         String pass = password.getText().toString().trim();
 
         if(em.isEmpty() || pass.isEmpty()){
-            Toast.makeText(MainActivity.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
 
         } else{
 
             if (!em.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(em).matches()){
                 Intent homepage = new Intent(this, Homepage.class);
                 startActivity(homepage);
-                Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MainActivity.this, "Please enter an email address", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
 
             }
 

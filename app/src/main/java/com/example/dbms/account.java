@@ -93,7 +93,7 @@ public class account extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(account.this, genders.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(account.this, genders.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -124,7 +124,7 @@ public class account extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(account.this, national.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(account.this, national.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -176,22 +176,19 @@ public class account extends AppCompatActivity {
         String nationals = national.getSelectedItem().toString();
 
 
-        if(names.isEmpty() || licensenos.isEmpty()||accountIDs.isEmpty() || contactnos.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||ages.isEmpty() ||
-                genderss.equals("Sex")|| nationals.equals("Nationality")||emails.isEmpty()){
-
-                        Toast.makeText(account.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
-
+        if(names.isEmpty() || licensenos.isEmpty()||accountIDs.isEmpty() || contactnos.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||ages.isEmpty() || emails.isEmpty()){
+            Toast.makeText(account.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
+        } else if (genderss.equals("Sex")){
+            Toast.makeText(account.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
+        }else if ( nationals.equals("Nationality")){
+            Toast.makeText(account.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
         } else{
-
             if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
-                Toast.makeText(account.this, "Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(account.this, "Added", Toast.LENGTH_SHORT).show();
             } else {
-                         Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_LONG).show();
+                         Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
             }
-
         }
-
-
     }
 
     private String getTodaysDate()
