@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,11 @@ import java.util.Calendar;
 
 public class Drivers extends AppCompatActivity {
 
-    private Button dBack,dateButton,licenseExp;
+    private Button dBack,dateButton,licenseExp,addBTN,editBTN,updateBTN,deleteBTn;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog,datePickerDialog1;
 
     private EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
-    Spinner blood,status1,eye,national;
+    Spinner blood,status1,eye,national,genders;
 
     ItemsModel itemsModel;
 
@@ -48,27 +49,41 @@ public class Drivers extends AppCompatActivity {
         name = findViewById(R.id.Fdrivername);
         licenseno = findViewById(R.id.licenseno);
         status1 = (Spinner) findViewById(R.id.Status);
+        weight = findViewById(R.id.weight);
+        height = findViewById(R.id.height);
+        address = findViewById(R.id.address);
+        agencycode = findViewById(R.id.agencycode);
+        dlcode = findViewById(R.id.dlcode);
+        conditions = findViewById(R.id.conditions);
 
+
+        addBTN = findViewById(R.id.addBTN);
+        editBTN = findViewById(R.id.editBTN);
+        updateBTN= findViewById(R.id.updateBTN);
+        deleteBTn = findViewById(R.id.deleteBTN);
+
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] gender = new String[] {
                 "Sex","Male", "Female"
         };
-        Spinner s = (Spinner) findViewById(R.id.gender);
+        genders = (Spinner) findViewById(R.id.gender);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, gender);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+        genders.setAdapter(adapter);
 
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        genders.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(s.getSelectedItem() == "Sex")
+                if(genders.getSelectedItem() == "Sex")
                 {
 
                     //Do nothing.
                 }
                 else{
 
-                    Toast.makeText(Drivers.this, s.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Drivers.this, genders.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -79,6 +94,8 @@ public class Drivers extends AppCompatActivity {
             }
         });
 
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] bloodType = new String[] {
                 "Blood Type","A", "A+", "A-","B", "B+", "B-","AB", "AB+", "AB-","O", "O+", "O-",
         };
@@ -110,6 +127,7 @@ public class Drivers extends AppCompatActivity {
         });
 
 
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] status = new String[] {
                 "License Status","Active", "Expired", "Custody"
         };
@@ -140,6 +158,8 @@ public class Drivers extends AppCompatActivity {
             }
         });
 
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] eyeColor = new String[] {
                 "Eye Color","Brown", "Black", "Blue","Gray", "Hazel", "Amber",
         };
@@ -170,6 +190,8 @@ public class Drivers extends AppCompatActivity {
             }
         });
 
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] nationality = new String[] {
                 "Nationality","Filipino", "Spanish", "Finnish","Chinese", "Japanese", "Korean","American"
         };
@@ -208,6 +230,7 @@ public class Drivers extends AppCompatActivity {
         });
 
 
+        // buong function nito is set yung text sa editText sa LicenseView
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
@@ -216,7 +239,7 @@ public class Drivers extends AppCompatActivity {
             name.setText(itemsModel.getDrivername());
             licenseno.setText(itemsModel.getLicense());
 
-            if(itemsModel.getStatus().equals("Active")){
+            if(itemsModel.getStatus().equals("Active")){  //set license status depende itemsModel.getStatus na text or string
                 status1.setSelection(1);
             } else if (itemsModel.getStatus().equals("Expired")){
                 status1.setSelection(2);
@@ -225,6 +248,43 @@ public class Drivers extends AppCompatActivity {
             } else {
                 status1.setSelection(0);
             }
+
+        }
+
+        addBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDriver();
+            }
+        });
+
+
+    }
+
+    private void addDriver() {
+
+        String names = name.getText().toString().trim();
+        String licensenos = licenseno.getText().toString().trim();
+        String statuss = status1.getSelectedItem().toString();
+        String genderss = genders.getSelectedItem().toString();
+        String bloods = blood.getSelectedItem().toString();
+        String nationals = national.getSelectedItem().toString();
+        String eyes = eye.getSelectedItem().toString();
+        String weightt = weight.getText().toString().trim();
+        String heightt = height.getText().toString().trim();
+        String adresss = address.getText().toString().trim();
+        String agencycodes = agencycode.getText().toString().trim();
+        String dlcodes = dlcode.getText().toString().trim();
+        String conditionss = conditions.getText().toString().trim();
+
+
+        if(names.isEmpty() || licensenos.isEmpty()||weightt.isEmpty() || heightt.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||dlcodes.isEmpty() ||
+                statuss.equals("License Status") || genderss.equals("Sex")||bloods.equals("Blood Type")|| nationals.equals("Nationality")||eyes.equals("Eye Color")){
+            Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
+
+        } else{
+
+            Toast.makeText(Drivers.this, "Added", Toast.LENGTH_LONG).show();
 
         }
 

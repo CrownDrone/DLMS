@@ -5,12 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
-    private Button login, driver, license, account;
+    private Button login;
+
+    EditText email, password;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -19,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         login = (Button) findViewById(R.id.login);
-        driver = (Button) findViewById(R.id.Driver);
-        //license = (Button) findViewById(R.id.license);
-        account = (Button) findViewById(R.id.account);
+        email = (EditText) findViewById(R.id.EmailAddress);
+        password = (EditText) findViewById(R.id.password);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 login();
             }
         });
@@ -33,7 +39,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void login(){
-        Intent homepage = new Intent(this, Homepage.class);
-        startActivity(homepage);
+
+        String em = email.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+
+        if(em.isEmpty() || pass.isEmpty()){
+            Toast.makeText(MainActivity.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
+
+        } else{
+
+            if (!em.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(em).matches()){
+                Intent homepage = new Intent(this, Homepage.class);
+                startActivity(homepage);
+                Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Please enter an email address", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+
     }
+
+
 }

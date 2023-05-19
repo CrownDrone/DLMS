@@ -249,7 +249,7 @@
                 app:layout_constraintVertical_bias="0.634" />
 
             <Button
-                android:id="@+id/addBTN8"
+                android:id="@+id/updateBTN"
                 android:layout_width="94dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="20dp"
@@ -264,7 +264,7 @@
                 app:layout_constraintVertical_bias="0.886" />
 
             <Button
-                android:id="@+id/addBTN7"
+                android:id="@+id/editBTN"
                 android:layout_width="81dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -293,7 +293,7 @@
                 app:layout_constraintVertical_bias="0.889" />
 
             <Button
-                android:id="@+id/addBTN10"
+                android:id="@+id/deleteBTN"
                 android:layout_width="103dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="294dp"
@@ -326,7 +326,7 @@
                 android:layout_height="37dp"
                 android:background="@color/white"
                 android:ems="10"
-                android:hint="Conditions"
+                android:hint="Conditions (optional)"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -215,7 +215,7 @@
                 app:layout_constraintVertical_bias="0.371" />
 
             <Button
-                android:id="@+id/addBTN8"
+                android:id="@+id/updateBTN2"
                 android:layout_width="94dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="20dp"
@@ -230,7 +230,7 @@
                 app:layout_constraintVertical_bias="0.885" />
 
             <Button
-                android:id="@+id/addBTN7"
+                android:id="@+id/editBTN2"
                 android:layout_width="81dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -245,7 +245,7 @@
                 app:layout_constraintVertical_bias="0.885" />
 
             <Button
-                android:id="@+id/addBTN"
+                android:id="@+id/addBTN2"
                 android:layout_width="81dp"
                 android:layout_height="45dp"
                 android:backgroundTint="#2874D1"
@@ -259,7 +259,7 @@
                 app:layout_constraintVertical_bias="0.889" />
 
             <Button
-                android:id="@+id/addBTN10"
+                android:id="@+id/deleteBTN2"
                 android:layout_width="103dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="296dp"

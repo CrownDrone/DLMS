@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,12 +20,13 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class account extends AppCompatActivity {
-    private Button aBack,dateButton,aBack2;
+
+    private Button aBack,dateButton,aBack2,addBTN2,editBTN2,updateBTN2,deleteBTN2;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog;
 
-    private EditText fullname,address,agencycode,age,email,contactno,accountID,licenseno;
+    private EditText fullname, accountID, address,licenseno,agencycode,contactno,age,email;
 
-    Spinner s, national;
+    Spinner genders,national;
 
     ItemsModel1 itemsModel1;
 
@@ -36,6 +38,10 @@ public class account extends AppCompatActivity {
 
         aBack = (Button) findViewById(R.id.aBack);
         aBack2 = (Button) findViewById(R.id.aBack2);
+        addBTN2 = (Button)  findViewById(R.id.addBTN2);
+        editBTN2 =(Button)  findViewById(R.id.editBTN2);
+        updateBTN2= (Button) findViewById(R.id.updateBTN2);
+        deleteBTN2 = (Button) findViewById(R.id.deleteBTN2);
 
         initDatePicker();
         dateButton = findViewById(R.id.birthday);
@@ -43,6 +49,14 @@ public class account extends AppCompatActivity {
 
         fullname = findViewById(R.id.fullname);
         accountID = findViewById(R.id.accountno);
+        address = findViewById(R.id.address);
+        licenseno = findViewById(R.id.licenseno);
+        agencycode = findViewById(R.id.agencycode);
+        contactno = findViewById(R.id.contactno);
+        age = findViewById(R.id.age);
+        email = findViewById(R.id.email);
+        genders = (Spinner) findViewById(R.id.gender);
+        national = (Spinner) findViewById(R.id.nationality);
 
 
         aBack.setOnClickListener(new View.OnClickListener() {
@@ -58,30 +72,31 @@ public class account extends AppCompatActivity {
                 AccList();
             }
         });
+
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] gender = new String[] {
                 "Sex","Male", "Female"
         };
-        s = (Spinner) findViewById(R.id.gender);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, gender);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+        genders.setAdapter(adapter);
 
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        genders.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(s.getSelectedItem() == "Sex")
+                if(genders.getSelectedItem() == "Sex")
                 {
 
                     //Do nothing.
                 }
                 else{
 
-                    Toast.makeText(account.this, s.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(account.this, genders.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
-
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -89,10 +104,11 @@ public class account extends AppCompatActivity {
             }
         });
 
+
+        //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] nationality = new String[] {
                 "Nationality","Filipino", "Spanish", "Finnish","Chinese", "Japanese", "Korean","American"
         };
-        national = (Spinner) findViewById(R.id.nationality);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, nationality);
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,6 +135,7 @@ public class account extends AppCompatActivity {
             }
         });
 
+        // buong function nito is set yung text sa editText sa accountView
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
@@ -129,12 +146,52 @@ public class account extends AppCompatActivity {
 
         }
 
+        addBTN2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAccount();
+            }
+        });
+
 
     }
 
     private void AccList() {
-        Intent main = new Intent(this, accountView.class);
-        startActivity(main);
+        Intent homepage = new Intent(this, accountView.class);
+        startActivity(homepage);
+    }
+
+
+    private void addAccount() {
+
+        String names = fullname.getText().toString().trim();
+        String accountIDs = accountID.getText().toString();
+        String adresss = address.getText().toString().trim();
+        String licensenos = licenseno.getText().toString().trim();
+        String agencycodes = agencycode.getText().toString().trim();
+        String contactnos = contactno.getText().toString().trim();
+        String ages = age.getText().toString().trim();
+        String emails = email.getText().toString().trim();
+        String genderss = genders.getSelectedItem().toString();
+        String nationals = national.getSelectedItem().toString();
+
+
+        if(names.isEmpty() || licensenos.isEmpty()||accountIDs.isEmpty() || contactnos.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||ages.isEmpty() ||
+                genderss.equals("Sex")|| nationals.equals("Nationality")||emails.isEmpty()){
+
+                        Toast.makeText(account.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
+
+        } else{
+
+            if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
+                Toast.makeText(account.this, "Added", Toast.LENGTH_LONG).show();
+            } else {
+                         Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+
     }
 
     private String getTodaysDate()
