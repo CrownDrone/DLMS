@@ -76,11 +76,11 @@
                 android:hint="Full Name"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintEnd_toStartOf="@+id/gender"
+                app:layout_constraintHorizontal_bias="0.766"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.098" />
+                app:layout_constraintVertical_bias="0.096" />
 
             <Spinner
                 android:id="@+id/gender"
@@ -92,7 +92,7 @@
                 app:layout_constraintHorizontal_bias="0.929"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1" />
+                app:layout_constraintVertical_bias="0.096" />
 
             <EditText
                 android:id="@+id/address"
@@ -105,10 +105,10 @@
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.564"
+                app:layout_constraintHorizontal_bias="0.621"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.216" />
+                app:layout_constraintVertical_bias="0.221" />
 
             <EditText
                 android:id="@+id/licenseno"
@@ -135,10 +135,10 @@
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.929"
+                app:layout_constraintHorizontal_bias="0.911"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.57" />
+                app:layout_constraintVertical_bias="0.571" />
 
             <EditText
                 android:id="@+id/accountno"
@@ -149,11 +149,11 @@
                 android:hint="Account ID no."
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintEnd_toStartOf="@+id/licenseno"
+                app:layout_constraintHorizontal_bias="0.564"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.681" />
+                app:layout_constraintVertical_bias="0.682" />
 
             <EditText
                 android:id="@+id/age"
@@ -179,8 +179,8 @@
                 android:hint="Agency Code"
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.605"
+                app:layout_constraintEnd_toStartOf="@+id/age"
+                app:layout_constraintHorizontal_bias="0.968"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.478" />
@@ -193,11 +193,11 @@
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.082"
+                app:layout_constraintEnd_toStartOf="@+id/birthday"
+                app:layout_constraintHorizontal_bias="0.958"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.383" />
+                app:layout_constraintVertical_bias="0.373" />
 
             <Button
                 android:id="@+id/birthday"
@@ -223,11 +223,11 @@
                 android:text="Update"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.59"
+                app:layout_constraintEnd_toStartOf="@+id/deleteBTN2"
+                app:layout_constraintHorizontal_bias="0.965"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.885" />
+                app:layout_constraintVertical_bias="0.886" />
 
             <Button
                 android:id="@+id/editBTN2"
@@ -238,8 +238,8 @@
                 android:text="Edit"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.311"
+                app:layout_constraintEnd_toStartOf="@+id/updateBTN2"
+                app:layout_constraintHorizontal_bias="0.919"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.885" />
@@ -252,24 +252,25 @@
                 android:text="Add"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.051"
+                app:layout_constraintEnd_toStartOf="@+id/editBTN2"
+                app:layout_constraintHorizontal_bias="0.64"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.889" />
+                app:layout_constraintVertical_bias="0.89" />
 
             <Button
                 android:id="@+id/deleteBTN2"
                 android:layout_width="103dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="296dp"
                 android:backgroundTint="#2874D1"
                 android:text="Delete"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.957"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.891" />
+                app:layout_constraintVertical_bias="0.89" />
 
             <EditText
                 android:id="@+id/email"
@@ -280,11 +281,11 @@
                 android:hint="Email"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.09"
+                app:layout_constraintEnd_toStartOf="@+id/contactno"
+                app:layout_constraintHorizontal_bias="0.657"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.571" />
+                app:layout_constraintVertical_bias="0.57" />
 
             <Spinner
                 android:id="@+id/nationality"
@@ -292,8 +293,8 @@
                 android:layout_height="31dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.084"
+                app:layout_constraintEnd_toStartOf="@+id/agencycode"
+                app:layout_constraintHorizontal_bias="0.758"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.479" />
