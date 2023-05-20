@@ -135,7 +135,7 @@ public class account extends AppCompatActivity {
             }
         });
 
-        // buong function nito is set yung text sa editText sa accountView
+        // buong function nito is magset nung text sa editText sa accountView
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
