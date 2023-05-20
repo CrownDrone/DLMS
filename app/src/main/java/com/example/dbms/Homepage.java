@@ -7,10 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Homepage extends AppCompatActivity {
     private Button logout, licenseStats, drivers, account;
-
+    TextView text;
+    FirebaseAuth auth;
+    FirebaseUser user;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +29,13 @@ public class Homepage extends AppCompatActivity {
         drivers = (Button) findViewById(R.id.Driver);
         account = (Button) findViewById(R.id.account);
 
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
         });
-
-
-
         licenseStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,13 +57,22 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
+        if(user == null){
+            Toast.makeText(Homepage.this, "Session Timed Out", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 
     private void logout(){
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void license(){
