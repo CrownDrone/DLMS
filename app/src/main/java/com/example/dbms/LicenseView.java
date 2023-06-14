@@ -21,15 +21,28 @@ import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 public class LicenseView extends AppCompatActivity {
 
-    String drivernames[] = {"John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine"};
-    String licenses[] = {"X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002"};
-    String statuses[] = {"Active", "Custody", "Expired","Active", "Custody", "Expired","Active", "Custody", "Expired"};
+    /*String drivernames[];
+    String licenses[];
+    String statuses[];*/
+
+    List<String> drivernames = new ArrayList<>();
+    List<String> licenses = new ArrayList<>();
+    List<String> statuses = new ArrayList<>();
+
+    String name, license, status;
 
     ListView listview;
 
@@ -39,6 +52,7 @@ public class LicenseView extends AppCompatActivity {
 
     List<ItemsModel> listitems = new ArrayList();
     private Button lBack3;
+    DatabaseReference ref;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,13 +66,54 @@ public class LicenseView extends AppCompatActivity {
 
         lBack3 = (Button) findViewById(R.id.lBack3);
 
+        ref = FirebaseDatabase.getInstance().getReference().child("driver");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                //remove all leftover data; prevents stacking
+                listitems.clear();
+                drivernames.clear();
+                licenses.clear();
+                statuses.clear();
 
-        for(int i = 0; i< drivernames.length; i++ ){
+                for (DataSnapshot ds : datasnapshot.getChildren()){//loop for retrieving data from database
 
-            ItemsModel itemsModel = new ItemsModel(drivernames[i],licenses[i],statuses[i]);
-            listitems.add(itemsModel);
+                    name = ds.child("names").getValue().toString();
+                    license = ds.child("licensenos").getValue().toString();
+                    status = ds.child("statuss").getValue().toString();
+                    System.out.println("and thems the fact: "+name+" "+license+" "+status);
 
-        }
+                    //add retrieve data to arraylist
+                    drivernames.add(name);
+                    licenses.add(license);
+                    statuses.add(status);
+                }
+
+                //convert arraylists into list strings
+                String[] drivernamesB = drivernames.toArray(new String[0]);
+                String[] licensesB = licenses.toArray(new String[0]);
+                String[] statusesB = statuses.toArray(new String[0]);
+
+
+                //loop to convert 3 list strings into 1 array, firebase maarte ayaw rekta tatlo hmpp
+                for(int i = 0; i< drivernamesB.length; i++ ){
+
+                    ItemsModel itemsModel = new ItemsModel(drivernamesB[i],licensesB[i],statusesB[i]);
+                    listitems.add(itemsModel);
+
+                }//EA SPORTS IT'S IN THE GAME
+
+                System.out.println("DBF225: "+ Arrays.toString(drivernamesB) +" "+Arrays.toString(licensesB)+" "+Arrays.toString(statusesB));
+                System.out.println("3BM42: "+listitems); //print stuff so I know I'm not hallucinating
+
+                customAdapter.notifyDataSetChanged();//update listview
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         customAdapter = new CustomAdapter(listitems, this);
         listview.setAdapter(customAdapter);
