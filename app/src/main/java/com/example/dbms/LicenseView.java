@@ -196,6 +196,8 @@ public class LicenseView extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(LicenseView.this, Drivers.class).putExtra("item",itemsModelListFilter.get(i)));
+                    Drivers d = new Drivers();
+                    d.setLinum(itemsModelListFilter.get(i).getLicense());
                 }
             });
 

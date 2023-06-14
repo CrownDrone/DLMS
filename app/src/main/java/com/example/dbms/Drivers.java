@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.style.IconMarginSpan;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,10 +20,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
@@ -33,7 +38,7 @@ public class Drivers extends AppCompatActivity {
 
     private EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
     Spinner blood,status1,eye,national,genders;
-
+    public static String linum;
     ItemsModel itemsModel;
 
     DatabaseReference DBMS;
@@ -275,11 +280,21 @@ public class Drivers extends AppCompatActivity {
     }
 
     private void addDriver() {
-        DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
-        DBMS.addValueEventListener(new ValueEventListener() {
+        linum = "X00-00-000000";
+        DBMS = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference driverRef = DBMS.child("driver");
+        Query licenseNo = driverRef.orderByChild("licensenos").equalTo(linum);
+        licenseNo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    System.out.println("license exists");
+                    Toast.makeText(Drivers.this, "Driver record already exists", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    System.out.println("Does not exists");
+                    passData();
+                }
             }
 
             @Override
@@ -287,8 +302,9 @@ public class Drivers extends AppCompatActivity {
 
             }
         });
+    }
 
-
+    private void passData(){
         //hold them values ayt
         String names = name.getText().toString().trim();
         String licensenos = licenseno.getText().toString().trim();
@@ -304,25 +320,25 @@ public class Drivers extends AppCompatActivity {
         String dlcodes = dlcode.getText().toString().trim();
         String conditionss = conditions.getText().toString().trim();
 
-            //gate keep
-            if(names.isEmpty() || licensenos.isEmpty()||weightt.isEmpty() || heightt.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||dlcodes.isEmpty()){
-                Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
-            } else if (genderss.equals("Sex")) {
-                Toast.makeText(Drivers.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
-            } else if (bloods.equals("Blood Type")) {
-                Toast.makeText(Drivers.this, "Please enter your Blood Type", Toast.LENGTH_SHORT).show();
-            } else if (statuss.equals("License Status")) {
-                Toast.makeText(Drivers.this, "Please enter your License Status", Toast.LENGTH_SHORT).show();
-            } else if (eyes.equals("Eye Color")) {
-                Toast.makeText(Drivers.this, "Please enter your Eye Color", Toast.LENGTH_SHORT).show();
-            } else if (nationals.equals("Nationality")) {
-                Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
-             }else{
-                //fetch them values ayt
-                driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss);
-                DBMS.push().setValue(add);
-                Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
-            }
+        //gate keep
+        if (names.isEmpty() || licensenos.isEmpty() || weightt.isEmpty() || heightt.isEmpty() || adresss.isEmpty() || agencycodes.isEmpty() || dlcodes.isEmpty()) {
+            Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
+        } else if (genderss.equals("Sex")) {
+            Toast.makeText(Drivers.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
+        } else if (bloods.equals("Blood Type")) {
+            Toast.makeText(Drivers.this, "Please enter your Blood Type", Toast.LENGTH_SHORT).show();
+        } else if (statuss.equals("License Status")) {
+            Toast.makeText(Drivers.this, "Please enter your License Status", Toast.LENGTH_SHORT).show();
+        } else if (eyes.equals("Eye Color")) {
+            Toast.makeText(Drivers.this, "Please enter your Eye Color", Toast.LENGTH_SHORT).show();
+        } else if (nationals.equals("Nationality")) {
+            Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
+        } else {
+            //fetch them values ayt
+            driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss);
+            DBMS.push().setValue(add);
+            Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String getTodaysDate()
@@ -477,5 +493,9 @@ public class Drivers extends AppCompatActivity {
 
     public void openDatePicker1(View view) {
         datePickerDialog1.show();
+    }
+
+    public void setLinum(String string){
+        linum = string;
     }
 }
