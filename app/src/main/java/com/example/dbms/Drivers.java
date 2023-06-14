@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 
 public class Drivers extends AppCompatActivity {
@@ -29,11 +32,15 @@ public class Drivers extends AppCompatActivity {
 
     ItemsModel itemsModel;
 
+    DatabaseReference DBMS;
+
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drivers);
+
+        DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
 
         initDatePicker();
         initDatePicker1();
@@ -61,6 +68,7 @@ public class Drivers extends AppCompatActivity {
         editBTN = findViewById(R.id.editBTN);
         updateBTN= findViewById(R.id.updateBTN);
         deleteBTn = findViewById(R.id.deleteBTN);
+
 
 
         //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
@@ -263,6 +271,7 @@ public class Drivers extends AppCompatActivity {
 
     private void addDriver() {
 
+        //hold them values ayt
         String names = name.getText().toString().trim();
         String licensenos = licenseno.getText().toString().trim();
         String statuss = status1.getSelectedItem().toString();
@@ -277,6 +286,7 @@ public class Drivers extends AppCompatActivity {
         String dlcodes = dlcode.getText().toString().trim();
         String conditionss = conditions.getText().toString().trim();
 
+            //gate keep
             if(names.isEmpty() || licensenos.isEmpty()||weightt.isEmpty() || heightt.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||dlcodes.isEmpty()){
                 Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
             } else if (genderss.equals("Sex")) {
@@ -290,8 +300,11 @@ public class Drivers extends AppCompatActivity {
             } else if (nationals.equals("Nationality")) {
                 Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
              }else{
+                //fetch them values ayt
+                driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss);
+                DBMS.push().setValue(add);
                 Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
-        }
+            }
     }
 
     private String getTodaysDate()
