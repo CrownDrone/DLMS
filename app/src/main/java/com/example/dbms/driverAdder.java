@@ -1,6 +1,6 @@
 package com.example.dbms;
 
-public class driverAdder {
+public class driverAdder {//CLASS TO HOLD VALUE FOR THROWING
 
     //DECLARE THEM
     String names;

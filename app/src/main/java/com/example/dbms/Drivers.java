@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 public class Drivers extends AppCompatActivity {
 
-    private Button dBack,dateButton,licenseExp,addBTN,editBTN,updateBTN,deleteBTn;  //dateButton is birthday button
+    private Button dBack,dateButton,licenseExp,addBTN,updateBTN,deleteBTn;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog,datePickerDialog1;
 
     private EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
@@ -71,13 +71,9 @@ public class Drivers extends AppCompatActivity {
         dlcode = findViewById(R.id.dlcode);
         conditions = findViewById(R.id.conditions);
 
-
         addBTN = findViewById(R.id.addBTN);
-        editBTN = findViewById(R.id.editBTN);
         updateBTN= findViewById(R.id.updateBTN);
         deleteBTn = findViewById(R.id.deleteBTN);
-
-
 
         //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] gender = new String[] {
@@ -266,16 +262,27 @@ public class Drivers extends AppCompatActivity {
             }
 
         }
-
-        addBTN.setOnClickListener(new View.OnClickListener() {
+        updateBTN.setOnClickListener(new View.OnClickListener() {//button to update exisitng driver
+            @Override
+            public void onClick(View view) {
+                updateInfo();
+            }
+        });
+        addBTN.setOnClickListener(new View.OnClickListener() {//button to add new driver
             @Override
             public void onClick(View view) {
                 addDriver();
             }
         });
+        deleteBTn.setOnClickListener(new View.OnClickListener() {//button to delete your mom
+            @Override
+            public void onClick(View view) {
+                deleteDriver();
+            }
+        });
         linum = fg.getPassLicense();
         licenseno.setText(linum);
-        try{
+        try{//eto yung autofill, fetch from database based on license
             if (!licenseno.getText().toString().isEmpty()){
                 System.out.println("Editing id " + linum);
                 DBMS = FirebaseDatabase.getInstance().getReference();
@@ -318,10 +325,8 @@ public class Drivers extends AppCompatActivity {
                             eye.setSelection(adapter3.getPosition(eyes));;
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }
@@ -334,7 +339,6 @@ public class Drivers extends AppCompatActivity {
             System.out.println("current error: "+exception);
         }
     }
-
     private void addDriver() {//for fetching data
         linum = licenseno.getText().toString().trim();
         DBMS = FirebaseDatabase.getInstance().getReference();
@@ -354,11 +358,9 @@ public class Drivers extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-
     private void passData(){
         //hold them values ayt
         String names = name.getText().toString().trim();
@@ -398,6 +400,91 @@ public class Drivers extends AppCompatActivity {
             Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
         }
         linum = "";
+    }
+
+    private void updateInfo(){//for updating existing driver record
+        linum = licenseno.getText().toString().trim();
+        DBMS = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference driverRef = DBMS.child("driver");
+        Query licenseNo = driverRef.orderByChild("licensenos").equalTo(linum);
+        licenseNo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){//check for duplicate
+                    System.out.println("license exists");
+
+                    String names = name.getText().toString().trim();
+                    String licensenos = licenseno.getText().toString().trim();
+                    String statuss = status1.getSelectedItem().toString();
+                    String genderss = genders.getSelectedItem().toString();
+                    String bloods = blood.getSelectedItem().toString();
+                    String nationals = national.getSelectedItem().toString();
+                    String eyes = eye.getSelectedItem().toString();
+                    String weightt = weight.getText().toString().trim();
+                    String heightt = height.getText().toString().trim();
+                    String adresss = address.getText().toString().trim();
+                    String agencycodes = agencycode.getText().toString().trim();
+                    String dlcodes = dlcode.getText().toString().trim();
+                    String conditionss = conditions.getText().toString().trim();
+                    String bday = dateButton.getText().toString();
+                    String expire = licenseExp.getText().toString();
+
+                    //gate keep
+                    if (names.isEmpty() || licensenos.isEmpty() || weightt.isEmpty() || heightt.isEmpty() || adresss.isEmpty() || agencycodes.isEmpty() || dlcodes.isEmpty()) {
+                        Toast.makeText(Drivers.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
+                    } else if (genderss.equals("Sex")) {
+                        Toast.makeText(Drivers.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
+                    } else if (bloods.equals("Blood Type")) {
+                        Toast.makeText(Drivers.this, "Please enter your Blood Type", Toast.LENGTH_SHORT).show();
+                    } else if (statuss.equals("License Status")) {
+                        Toast.makeText(Drivers.this, "Please enter your License Status", Toast.LENGTH_SHORT).show();
+                    } else if (eyes.equals("Eye Color")) {
+                        Toast.makeText(Drivers.this, "Please enter your Eye Color", Toast.LENGTH_SHORT).show();
+                    } else if (nationals.equals("Nationality")) {
+                        Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //throw them values at existing record
+                        driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss, bday, expire);
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            ds.getRef().setValue(add);
+                        };
+                        Toast.makeText(Drivers.this, "Record Updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    System.out.println("Does not exists");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void deleteDriver(){
+        linum = licenseno.getText().toString().trim();
+        DBMS = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference driverRef = DBMS.child("driver");
+        Query licenseNo = driverRef.orderByChild("licensenos").equalTo(linum);
+        licenseNo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){//check for existing
+                    System.out.println("license exists");
+
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        ds.getRef().removeValue();
+                    };
+                    Toast.makeText(Drivers.this, "Record Removed", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    System.out.println("Does not exists");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private String getTodaysDate()
@@ -554,4 +641,4 @@ public class Drivers extends AppCompatActivity {
         datePickerDialog1.show();
     }
 
-}
+}//andaming leftover sa fixing nakakatakot kasi galawin baka di na gumana yung code

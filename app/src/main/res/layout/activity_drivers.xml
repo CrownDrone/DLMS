@@ -258,52 +258,39 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.611"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.886" />
 
             <Button
-                android:id="@+id/editBTN"
-                android:layout_width="81dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#2874D1"
-                android:text="Edit"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.322"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.884" />
-
-            <Button
                 android:id="@+id/addBTN"
-                android:layout_width="81dp"
+                android:layout_width="94dp"
                 android:layout_height="45dp"
                 android:backgroundTint="#2874D1"
                 android:text="Add"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.051"
+                app:layout_constraintEnd_toStartOf="@+id/updateBTN"
+                app:layout_constraintHorizontal_bias="0.552"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.889" />
+                app:layout_constraintVertical_bias="0.892" />
 
             <Button
                 android:id="@+id/deleteBTN"
-                android:layout_width="103dp"
+                android:layout_width="94dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="294dp"
+                android:layout_marginStart="24dp"
                 android:backgroundTint="#2874D1"
                 android:text="Delete"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.057"
+                app:layout_constraintStart_toEndOf="@+id/updateBTN"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.891" />
+                app:layout_constraintVertical_bias="0.89" />
 
             <EditText
                 android:id="@+id/height"

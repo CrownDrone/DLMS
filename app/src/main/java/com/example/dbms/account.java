@@ -29,7 +29,7 @@ import java.util.Calendar;
 
 public class account extends AppCompatActivity {
 
-    private Button aBack,dateButton,aBack2,addBTN2,editBTN2,updateBTN2,deleteBTN2;  //dateButton is birthday button
+    private Button aBack,dateButton,aBack2,addBTN2,updateBTN2,deleteBTN2;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog;
 
     private DatePicker datebutton;
@@ -44,12 +44,14 @@ public class account extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        forGate fg = new forGate();
+        
         setContentView(R.layout.activity_account);
 
         aBack = (Button) findViewById(R.id.aBack);
         aBack2 = (Button) findViewById(R.id.aBack2);
         addBTN2 = (Button)  findViewById(R.id.addBTN2);
-        editBTN2 =(Button)  findViewById(R.id.editBTN2);
         updateBTN2= (Button) findViewById(R.id.updateBTN2);
         deleteBTN2 = (Button) findViewById(R.id.deleteBTN2);
 
@@ -161,8 +163,65 @@ public class account extends AppCompatActivity {
                 addAccount();
             }
         });
+        updateBTN2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateInfo();
+            }
+        });
+        deleteBTN2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAccount();
+            }
+        });
+        idnum = fg.getPassID();
+        accountID.setText(idnum);
+        try{
+            if(!accountID.getText().toString().trim().isEmpty()){
+                System.out.println("Editing id " + idnum);
+                DBMS = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference driverRef = DBMS.child("account");
+                Query firebase = driverRef.orderByChild("accountIDs").equalTo(idnum);
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            String names = ds.child("names").getValue().toString().trim();
+                            String accountIDs = ds.child("accountIDs").getValue().toString().trim();
+                            String adresss = ds.child("adresss").getValue().toString().trim();
+                            String agencycodes = ds.child("agencycodes").getValue().toString().trim();
+                            String contactnos = ds.child("contactnos").getValue().toString().trim();
+                            String ages = ds.child("ages").getValue().toString().trim();
+                            String emails = ds.child("emails").getValue().toString().trim();
+                            String genderss = ds.child("genderss").getValue().toString().trim();
+                            String nationals = ds.child("nationals").getValue().toString().trim();
+                            String birth = ds.child("birth").getValue().toString().trim();
 
+                            fullname.setText(names);
+                            accountID.setText(accountIDs);
+                            address.setText(adresss);
+                            agencycode.setText(agencycodes);
+                            contactno.setText(contactnos);
+                            age.setText(ages);
+                            email.setText(emails);
+                            dateButton.setText(birth);
+                            genders.setSelection(adapter.getPosition(genderss));
+                            national.setSelection(adapter4.getPosition(nationals));
 
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        }
+        catch (Exception e){
+            System.out.println("current error: "+e);
+        }
     }
 
     private void AccList() {
@@ -227,6 +286,86 @@ public class account extends AppCompatActivity {
         }
         idnum = "";
     }
+
+    private void updateInfo(){
+        idnum = accountID.getText().toString();
+        DBMS = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference driverRef = DBMS.child("account");
+        Query accountno = driverRef.orderByChild("accountIDs").equalTo(idnum);
+        accountno.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    System.out.println("account exists");
+
+                    String names = fullname.getText().toString().trim();
+                    String accountIDs = accountID.getText().toString();
+                    String adresss = address.getText().toString().trim();
+                    String agencycodes = agencycode.getText().toString().trim();
+                    String contactnos = contactno.getText().toString().trim();
+                    String ages = age.getText().toString().trim();
+                    String emails = email.getText().toString().trim();
+                    String genderss = genders.getSelectedItem().toString();
+                    String nationals = national.getSelectedItem().toString();
+                    String birth = dateButton.getText().toString();
+
+
+                    if(names.isEmpty() || accountIDs.isEmpty() || contactnos.isEmpty()||adresss.isEmpty() || agencycodes.isEmpty()||ages.isEmpty() || emails.isEmpty()){
+                        Toast.makeText(account.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
+                    } else if (genderss.equals("Sex")){
+                        Toast.makeText(account.this, "Please enter your Sex", Toast.LENGTH_SHORT).show();
+                    }else if ( nationals.equals("Nationality")){
+                        Toast.makeText(account.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
+                    } else{
+                        if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
+                            Toast.makeText(account.this, "Added", Toast.LENGTH_SHORT).show();
+                            accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
+                            for (DataSnapshot ds : snapshot.getChildren()){
+                                ds.getRef().setValue(add);
+                            };
+                        } else {
+                            Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                else{
+                    System.out.println("Does not exists");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteAccount(){
+
+        idnum = accountID.getText().toString();
+        DBMS = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference driverRef = DBMS.child("account");
+        Query accountno = driverRef.orderByChild("accountIDs").equalTo(idnum);
+        accountno.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    System.out.println("account exists");
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        ds.getRef().removeValue();
+                    };
+                    Toast.makeText(account.this, "Record Removed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     private String getTodaysDate()
     {
         Calendar cal = Calendar.getInstance();
@@ -305,10 +444,6 @@ public class account extends AppCompatActivity {
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
-    }
-
-    public void setIDnum(String string){
-        idnum = string;
     }
 
 }

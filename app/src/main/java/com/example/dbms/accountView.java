@@ -30,7 +30,7 @@ public class accountView extends AppCompatActivity {
 
     List<String> accountname = new ArrayList<>();
     List<String> accountid = new ArrayList<>();
-    String name, account;
+    String name, account, passID;
     ListView listview1;
 
     CustomAdapter customAdapter1;
@@ -162,18 +162,24 @@ public class accountView extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            passID = "";
 
             view = getLayoutInflater().inflate(R.layout.activity_custom_list_view1, null);
-            TextView txtView= (TextView) view.findViewById(R.id.accountname);
             TextView txtView1= (TextView) view.findViewById(R.id.accountid);
+            TextView txtView= (TextView) view.findViewById(R.id.accountname);
 
-            txtView.setText(itemsModelListFilter.get(i).getAccountname());
             txtView1.setText(itemsModelListFilter.get(i).getAccountid());
+            txtView.setText(itemsModelListFilter.get(i).getAccountname());
+
+            passID = itemsModelListFilter.get(i).getAccountid();
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(accountView.this, account.class).putExtra("item",itemsModelListFilter.get(i)));
+                    forGate fg = new forGate();
+                    System.out.println("pass onto "+passID);
+                    fg.setPassID(passID);
                 }
             });
 
