@@ -42,7 +42,7 @@ public class LicenseView extends AppCompatActivity {
     List<String> licenses = new ArrayList<>();
     List<String> statuses = new ArrayList<>();
 
-    String name, license, status;
+    String name, license, status, passLicense;
 
     ListView listview;
 
@@ -182,22 +182,27 @@ public class LicenseView extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            passLicense = "";
 
             view = getLayoutInflater().inflate(R.layout.activity_custom_list_view, null);
-            TextView txtView= (TextView) view.findViewById(R.id.drivername);
             TextView txtView1= (TextView) view.findViewById(R.id.license);
+            TextView txtView= (TextView) view.findViewById(R.id.drivername);
+
             TextView txtView2= (TextView) view.findViewById(R.id.status);
 
-            txtView.setText(itemsModelListFilter.get(i).getDrivername());
             txtView1.setText(itemsModelListFilter.get(i).getLicense());
+            txtView.setText(itemsModelListFilter.get(i).getDrivername());
+
+            passLicense = itemsModelListFilter.get(i).getLicense();
             txtView2.setText(itemsModelListFilter.get(i).getStatus());
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(LicenseView.this, Drivers.class).putExtra("item",itemsModelListFilter.get(i)));
-                    Drivers d = new Drivers();
-                    d.setLinum(itemsModelListFilter.get(i).getLicense());
+                    forGate fg = new forGate();
+                    System.out.println("pass onto "+passLicense);
+                    fg.setPassLicense(passLicense);
                 }
             });
 

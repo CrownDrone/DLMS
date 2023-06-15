@@ -1,5 +1,6 @@
 package com.example.dbms;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -16,14 +17,20 @@ import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class accountView extends AppCompatActivity {
 
-    String accountname[] = {"John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine","John Vel", "Kaiser Mao", "Blake Justine"};
-    String accountid[] = {"X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002","X00-00-000000", "X00-00-000001", "X00-00-000002"};
-
+    List<String> accountname = new ArrayList<>();
+    List<String> accountid = new ArrayList<>();
+    String name, account;
     ListView listview1;
 
     CustomAdapter customAdapter1;
@@ -32,6 +39,8 @@ public class accountView extends AppCompatActivity {
 
     List<ItemsModel1> listitems = new ArrayList();
     private Button lBack3;
+
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +54,39 @@ public class accountView extends AppCompatActivity {
 
         lBack3 = (Button) findViewById(R.id.lBack3);
 
+        ref = FirebaseDatabase.getInstance().getReference().child("account");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                accountname.clear();
+                accountid.clear();
+                listitems.clear();
 
-        for(int i = 0; i< accountname.length; i++ ){
+                for (DataSnapshot ds : datasnapshot.getChildren()){
 
-            ItemsModel1 itemsModel = new ItemsModel1(accountname[i],accountid[i]);
-            listitems.add(itemsModel);
+                    name = ds.child("names").getValue().toString();
+                    account = ds.child("accountIDs").getValue().toString();
 
+                    accountname.add(name);
+                    accountid.add(account);
+                }
+                String[] accountnameB = accountname.toArray(new String[0]);
+                String[] accountidB = accountid.toArray(new String[0]);
 
-        }
+                for(int i = 0; i< accountnameB.length; i++ ){
+
+                    ItemsModel1 itemsModel = new ItemsModel1(accountnameB[i],accountidB[i]);
+                    listitems.add(itemsModel);
+                }
+                customAdapter1.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         customAdapter1 = new CustomAdapter(listitems, this);
         listview1.setAdapter(customAdapter1);

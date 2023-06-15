@@ -16,10 +16,12 @@ public class driverAdder {
     String agencycodes;
     String dlcodes;
     String conditionss;
+    String bday;
+    String expire;
 
 
     //HOLD THEM
-    public driverAdder(String names, String licensenos, String statuss, String genderss, String bloods, String nationals, String eyes, String weightt, String heightt, String adresss, String agencycodes, String dlcodes, String conditionss) {
+    public driverAdder(String names, String licensenos, String statuss, String genderss, String bloods, String nationals, String eyes, String weightt, String heightt, String adresss, String agencycodes, String dlcodes, String conditionss, String bday, String expire) {
         this.names = names;
         this.licensenos = licensenos;
         this.statuss = statuss;
@@ -33,6 +35,8 @@ public class driverAdder {
         this.agencycodes = agencycodes;
         this.dlcodes = dlcodes;
         this.conditionss = conditionss;
+        this.bday = bday;
+        this.expire = expire;
     }
 
     //GIVE THEM
@@ -86,5 +90,13 @@ public class driverAdder {
 
     public String getConditionss() {
         return conditionss;
+    }
+
+    public String getBday() {
+        return bday;
+    }
+
+    public String getExpire() {
+        return expire;
     }
 }

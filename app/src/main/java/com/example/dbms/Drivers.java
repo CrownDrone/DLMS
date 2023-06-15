@@ -49,11 +49,10 @@ public class Drivers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drivers);
 
-        DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
-
         initDatePicker();
         initDatePicker1();
 
+        forGate fg = new forGate();
         dBack = (Button) findViewById(R.id.dBack);
 
         dateButton = findViewById(R.id.birthday);
@@ -274,20 +273,77 @@ public class Drivers extends AppCompatActivity {
                 addDriver();
             }
         });
+        linum = fg.getPassLicense();
+        licenseno.setText(linum);
+        try{
+            if (!licenseno.getText().toString().isEmpty()){
+                System.out.println("Editing id " + linum);
+                DBMS = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference driverRef = DBMS.child("driver");
+                Query firebase = driverRef.orderByChild("licensenos").equalTo(linum);
+                firebase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            String names = ds.child("names").getValue().toString();
+                            String licensenos = ds.child("licensenos").getValue().toString();
+                            String statuss = ds.child("statuss").getValue().toString();
+                            String genderss = ds.child("genderss").getValue().toString();
+                            String bloods = ds.child("bloods").getValue().toString();
+                            String nationals = ds.child("nationals").getValue().toString();
+                            String eyes = ds.child("eyes").getValue().toString();
+                            String weightt = ds.child("weightt").getValue().toString();
+                            String heightt = ds.child("heightt").getValue().toString();
+                            String adresss = ds.child("adresss").getValue().toString();
+                            String agencycodes = ds.child("agencycodes").getValue().toString();
+                            String dlcodes = ds.child("dlcodes").getValue().toString();
+                            String conditionss = ds.child("conditionss").getValue().toString();
+                            String bday = ds.child("bday").getValue().toString();
+                            String expire = ds.child("expire").getValue().toString();
 
-        //eb
+                            name.setText(names);
+                            licenseno.setText(licensenos);
+                            weight.setText(weightt);
+                            height.setText(heightt);
+                            address.setText(adresss);
+                            agencycode.setText(agencycodes);
+                            dlcode.setText(dlcodes);
+                            conditions.setText(conditionss);
+                            dateButton.setText(bday);
+                            licenseExp.setText(expire);
+                            status1.setSelection(adapter2.getPosition(statuss));;
+                            genders.setSelection(adapter.getPosition(genderss));;
+                            blood.setSelection(adapter1.getPosition(bloods));;
+                            national.setSelection(adapter4.getPosition(nationals));;
+                            eye.setSelection(adapter3.getPosition(eyes));;
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+            else{
+                System.out.println("conditions not met, not editing "+linum);
+            }
+        }
+        catch (Exception exception){
+            Toast.makeText(Drivers.this, exception.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("current error: "+exception);
+        }
     }
 
-    private void addDriver() {
-        linum = "X00-00-000000";
+    private void addDriver() {//for fetching data
+        linum = licenseno.getText().toString().trim();
         DBMS = FirebaseDatabase.getInstance().getReference();
         DatabaseReference driverRef = DBMS.child("driver");
         Query licenseNo = driverRef.orderByChild("licensenos").equalTo(linum);
         licenseNo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if(dataSnapshot.exists()){//check for duplicate
                     System.out.println("license exists");
                     Toast.makeText(Drivers.this, "Driver record already exists", Toast.LENGTH_SHORT).show();
                 }
@@ -296,7 +352,6 @@ public class Drivers extends AppCompatActivity {
                     passData();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -319,6 +374,8 @@ public class Drivers extends AppCompatActivity {
         String agencycodes = agencycode.getText().toString().trim();
         String dlcodes = dlcode.getText().toString().trim();
         String conditionss = conditions.getText().toString().trim();
+        String bday = dateButton.getText().toString();
+        String expire = licenseExp.getText().toString();
 
         //gate keep
         if (names.isEmpty() || licensenos.isEmpty() || weightt.isEmpty() || heightt.isEmpty() || adresss.isEmpty() || agencycodes.isEmpty() || dlcodes.isEmpty()) {
@@ -334,11 +391,13 @@ public class Drivers extends AppCompatActivity {
         } else if (nationals.equals("Nationality")) {
             Toast.makeText(Drivers.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
         } else {
-            //fetch them values ayt
-            driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss);
+            //throw them values ayt
+            driverAdder add = new driverAdder(names, licensenos, statuss, genderss, bloods, nationals, eyes, weightt, heightt, adresss, agencycodes, dlcodes, conditionss, bday, expire);
+            DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
             DBMS.push().setValue(add);
             Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
         }
+        linum = "";
     }
 
     private String getTodaysDate()
@@ -495,7 +554,4 @@ public class Drivers extends AppCompatActivity {
         datePickerDialog1.show();
     }
 
-    public void setLinum(String string){
-        linum = string;
-    }
 }

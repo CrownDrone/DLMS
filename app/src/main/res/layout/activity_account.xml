@@ -111,21 +111,6 @@
                 app:layout_constraintVertical_bias="0.221" />
 
             <EditText
-                android:id="@+id/licenseno"
-                android:layout_width="154dp"
-                android:layout_height="37dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="License no."
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.868"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.682" />
-
-            <EditText
                 android:id="@+id/contactno"
                 android:layout_width="185dp"
                 android:layout_height="36dp"
@@ -135,22 +120,22 @@
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.911"
+                app:layout_constraintHorizontal_bias="0.942"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.571" />
+                app:layout_constraintVertical_bias="0.682" />
 
             <EditText
                 android:id="@+id/accountno"
-                android:layout_width="185dp"
+                android:layout_width="175dp"
                 android:layout_height="36dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Account ID no."
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/licenseno"
-                app:layout_constraintHorizontal_bias="0.564"
+                app:layout_constraintEnd_toStartOf="@+id/contactno"
+                app:layout_constraintHorizontal_bias="0.605"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.682" />
@@ -158,7 +143,7 @@
             <EditText
                 android:id="@+id/age"
                 android:layout_width="95dp"
-                android:layout_height="31dp"
+                android:layout_height="35dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Age"
@@ -173,7 +158,7 @@
             <EditText
                 android:id="@+id/agencycode"
                 android:layout_width="111dp"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Agency Code"
@@ -274,23 +259,23 @@
 
             <EditText
                 android:id="@+id/email"
-                android:layout_width="171dp"
-                android:layout_height="37dp"
+                android:layout_width="367dp"
+                android:layout_height="35dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Email"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/contactno"
-                app:layout_constraintHorizontal_bias="0.657"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.522"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.57" />
+                app:layout_constraintVertical_bias="0.578" />
 
             <Spinner
                 android:id="@+id/nationality"
                 android:layout_width="153dp"
-                android:layout_height="31dp"
+                android:layout_height="35dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/agencycode"
