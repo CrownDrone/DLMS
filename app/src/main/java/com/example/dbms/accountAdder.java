@@ -8,10 +8,11 @@ public class accountAdder {
     String contactnos;
     String ages;
     String emails;
+    String passwords;
     String genderss;
     String nationals;
     String birth;
-    public accountAdder(String names, String accountIDs, String adresss, String agencycodes, String contactnos, String ages, String emails, String genderss, String nationals, String birth) {
+    public accountAdder(String names, String accountIDs, String adresss, String agencycodes, String contactnos, String ages, String emails, String passwords, String genderss, String nationals, String birth) {
         this.names = names;
         this.accountIDs = accountIDs;
         this.adresss = adresss;
@@ -19,6 +20,7 @@ public class accountAdder {
         this.contactnos = contactnos;
         this.ages = ages;
         this.emails = emails;
+        this.passwords = passwords;
         this.genderss = genderss;
         this.nationals = nationals;
         this.birth = birth;
@@ -52,6 +54,9 @@ public class accountAdder {
         return emails;
     }
 
+    public String getPasswords() {
+        return passwords;
+    }
     public String getGenderss() {
         return genderss;
     }

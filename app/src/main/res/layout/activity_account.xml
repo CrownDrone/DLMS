@@ -120,10 +120,10 @@
                 android:inputType="number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.942"
+                app:layout_constraintHorizontal_bias="0.933"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.682" />
+                app:layout_constraintVertical_bias="0.775" />
 
             <EditText
                 android:id="@+id/accountno"
@@ -138,7 +138,7 @@
                 app:layout_constraintHorizontal_bias="0.605"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.682" />
+                app:layout_constraintVertical_bias="0.775" />
 
             <EditText
                 android:id="@+id/age"
@@ -256,6 +256,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.578" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="367dp"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.676" />
 
             <Spinner
                 android:id="@+id/nationality"

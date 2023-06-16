@@ -18,32 +18,48 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.UserWriteRecord;
 
+import java.io.FileInputStream;
 import java.util.Calendar;
 
 public class account extends AppCompatActivity {
+
 
     private Button aBack,dateButton,aBack2,addBTN2,updateBTN2,deleteBTN2;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog;
 
     private DatePicker datebutton;
-    private EditText fullname, accountID, address,agencycode,contactno,age,email;
+    private EditText fullname, accountID, address,agencycode,contactno,age,email,password;
 
     public String idnum;
     Spinner genders,national;
     ItemsModel1 itemsModel1;
     DatabaseReference DBMS;
+    FirebaseAuth user;
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*FileInputStream serviceAccount = new FileInputStream("ServiceAccountKey.json");
+        FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
+        FirebaseApp.initializeApp(options);*/
 
         forGate fg = new forGate();
         
@@ -255,7 +271,7 @@ public class account extends AppCompatActivity {
 
     }
 
-    public void passData(){
+    public void passData(){//literally the method name
         String names = fullname.getText().toString().trim();
         String accountIDs = accountID.getText().toString();
         String adresss = address.getText().toString().trim();
@@ -263,6 +279,7 @@ public class account extends AppCompatActivity {
         String contactnos = contactno.getText().toString().trim();
         String ages = age.getText().toString().trim();
         String emails = email.getText().toString().trim();
+        String passwords = password.getText().toString();
         String genderss = genders.getSelectedItem().toString();
         String nationals = national.getSelectedItem().toString();
         String birth = dateButton.getText().toString();
@@ -276,10 +293,17 @@ public class account extends AppCompatActivity {
             Toast.makeText(account.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
         } else{
             if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
-                Toast.makeText(account.this, "Added", Toast.LENGTH_SHORT).show();
-                accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
+
+                accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, passwords, genderss, nationals, birth);
                 DBMS = FirebaseDatabase.getInstance().getReference().child("account");
                 DBMS.push().setValue(add);
+                user.createUserWithEmailAndPassword(emails, passwords).addOnSuccessListener(new OnSuccessListener<AuthResult>() { //create new user
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(account.this, "Account Created", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             } else {
                 Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
             }
@@ -288,6 +312,8 @@ public class account extends AppCompatActivity {
     }
 
     private void updateInfo(){
+
+
         idnum = accountID.getText().toString();
         DBMS = FirebaseDatabase.getInstance().getReference();
         DatabaseReference driverRef = DBMS.child("account");
@@ -305,6 +331,7 @@ public class account extends AppCompatActivity {
                     String contactnos = contactno.getText().toString().trim();
                     String ages = age.getText().toString().trim();
                     String emails = email.getText().toString().trim();
+                    String passwords = password.getText().toString();
                     String genderss = genders.getSelectedItem().toString();
                     String nationals = national.getSelectedItem().toString();
                     String birth = dateButton.getText().toString();
@@ -319,9 +346,11 @@ public class account extends AppCompatActivity {
                     } else{
                         if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
                             Toast.makeText(account.this, "Added", Toast.LENGTH_SHORT).show();
-                            accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
+                            accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, passwords, genderss, nationals, birth);
                             for (DataSnapshot ds : snapshot.getChildren()){
                                 ds.getRef().setValue(add);
+
+                                //3bm46
                             };
                         } else {
                             Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
@@ -341,7 +370,6 @@ public class account extends AppCompatActivity {
     }
 
     private void deleteAccount(){
-
         idnum = accountID.getText().toString();
         DBMS = FirebaseDatabase.getInstance().getReference();
         DatabaseReference driverRef = DBMS.child("account");
