@@ -38,38 +38,31 @@ import java.util.Calendar;
 public class account extends AppCompatActivity {
 
 
-    private Button aBack,dateButton,aBack2,addBTN2,updateBTN2,deleteBTN2;  //dateButton is birthday button
+    private Button aBack,dateButton,aBack2,addBTN2,updateBTN2;//,deleteBTN2;  //dateButton is birthday button
     private DatePickerDialog datePickerDialog;
 
     private DatePicker datebutton;
-    private EditText fullname, accountID, address,agencycode,contactno,age,email,password;
+    private EditText fullname, accountID, address,agencycode,contactno,age,email;
 
     public String idnum;
     Spinner genders,national;
     ItemsModel1 itemsModel1;
     DatabaseReference DBMS;
     FirebaseAuth user;
-
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*FileInputStream serviceAccount = new FileInputStream("ServiceAccountKey.json");
-        FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
-        FirebaseApp.initializeApp(options);*/
-
         forGate fg = new forGate();
-        
+
         setContentView(R.layout.activity_account);
 
         aBack = (Button) findViewById(R.id.aBack);
         aBack2 = (Button) findViewById(R.id.aBack2);
         addBTN2 = (Button)  findViewById(R.id.addBTN2);
         updateBTN2= (Button) findViewById(R.id.updateBTN2);
-        deleteBTN2 = (Button) findViewById(R.id.deleteBTN2);
+        //deleteBTN2 = (Button) findViewById(R.id.deleteBTN2);
 
         initDatePicker();
         dateButton = findViewById(R.id.birthday);
@@ -84,7 +77,6 @@ public class account extends AppCompatActivity {
         email = findViewById(R.id.email);
         genders = (Spinner) findViewById(R.id.gender);
         national = (Spinner) findViewById(R.id.nationality);
-
 
         aBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +112,7 @@ public class account extends AppCompatActivity {
                 }
                 else{
 
-                  //  Toast.makeText(account.this, genders.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(account.this, genders.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -151,7 +143,7 @@ public class account extends AppCompatActivity {
                 }
                 else{
 
-                  //  Toast.makeText(account.this, national.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(account.this, national.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -185,12 +177,12 @@ public class account extends AppCompatActivity {
                 updateInfo();
             }
         });
-        deleteBTN2.setOnClickListener(new View.OnClickListener() {
+/*        deleteBTN2.setOnClickListener(new View.OnClickListener() { //requires firerbase admin sdk but sino ba gusto mag overhaul
             @Override
             public void onClick(View view) {
                 deleteAccount();
             }
-        });
+        });*/
         idnum = fg.getPassID();
         accountID.setText(idnum);
         try{
@@ -279,7 +271,6 @@ public class account extends AppCompatActivity {
         String contactnos = contactno.getText().toString().trim();
         String ages = age.getText().toString().trim();
         String emails = email.getText().toString().trim();
-        String passwords = password.getText().toString();
         String genderss = genders.getSelectedItem().toString();
         String nationals = national.getSelectedItem().toString();
         String birth = dateButton.getText().toString();
@@ -294,13 +285,24 @@ public class account extends AppCompatActivity {
         } else{
             if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
 
-                accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, passwords, genderss, nationals, birth);
+                accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
                 DBMS = FirebaseDatabase.getInstance().getReference().child("account");
                 DBMS.push().setValue(add);
-                user.createUserWithEmailAndPassword(emails, passwords).addOnSuccessListener(new OnSuccessListener<AuthResult>() { //create new user
+
+                user = FirebaseAuth.getInstance();
+                String mail = String.valueOf((email.getText()));
+                String num = String.valueOf(contactno.getText());
+                user.createUserWithEmailAndPassword(mail, num).addOnSuccessListener(new OnSuccessListener<AuthResult>() { //create new user
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(account.this, "Account Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(account.this, "Account Successfully Created", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder notif = new AlertDialog.Builder(account.this);
+                        notif.setTitle("Login Information: ")
+                                .setMessage("Email: "+ emails+"\nPassword: "+contactnos)
+                                .setCancelable(true)
+                                .setNeutralButton("Ok", null);
+                        notif.create().show();
                     }
                 });
 
@@ -331,7 +333,6 @@ public class account extends AppCompatActivity {
                     String contactnos = contactno.getText().toString().trim();
                     String ages = age.getText().toString().trim();
                     String emails = email.getText().toString().trim();
-                    String passwords = password.getText().toString();
                     String genderss = genders.getSelectedItem().toString();
                     String nationals = national.getSelectedItem().toString();
                     String birth = dateButton.getText().toString();
@@ -345,11 +346,10 @@ public class account extends AppCompatActivity {
                         Toast.makeText(account.this, "Please enter your Nationality", Toast.LENGTH_SHORT).show();
                     } else{
                         if (!emails.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emails).matches()){
-                            Toast.makeText(account.this, "Added", Toast.LENGTH_SHORT).show();
-                            accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, passwords, genderss, nationals, birth);
+                            Toast.makeText(account.this, "Information Updated", Toast.LENGTH_SHORT).show();
+                            accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
                             for (DataSnapshot ds : snapshot.getChildren()){
                                 ds.getRef().setValue(add);
-
                                 //3bm46
                             };
                         } else {
@@ -368,8 +368,8 @@ public class account extends AppCompatActivity {
             }
         });
     }
-
-    private void deleteAccount(){
+//yung kelangan nyo firebase admin sdk pero ayaw mong mag overhaul
+/*    private void deleteAccount(){
         idnum = accountID.getText().toString();
         DBMS = FirebaseDatabase.getInstance().getReference();
         DatabaseReference driverRef = DBMS.child("account");
@@ -392,7 +392,7 @@ public class account extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
     private String getTodaysDate()
     {

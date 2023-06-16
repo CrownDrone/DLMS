@@ -140,35 +140,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.775" />
 
-            <EditText
-                android:id="@+id/age"
-                android:layout_width="95dp"
-                android:layout_height="35dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="Age"
-                android:inputType="number"
+            <Button
+                android:id="@+id/birthday"
+                android:layout_width="265dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:onClick="openDatePicker"
+                android:text="Select Birth Date"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.949"
+                app:layout_constraintHorizontal_bias="0.89"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.479" />
-
-            <EditText
-                android:id="@+id/agencycode"
-                android:layout_width="111dp"
-                android:layout_height="35dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="Agency Code"
-                android:inputType="number"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/age"
-                app:layout_constraintHorizontal_bias="0.968"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.478" />
+                app:layout_constraintVertical_bias="0.376" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -182,22 +167,7 @@
                 app:layout_constraintHorizontal_bias="0.958"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.373" />
-
-            <Button
-                android:id="@+id/birthday"
-                android:layout_width="265dp"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/white"
-                android:onClick="openDatePicker"
-                android:text="Select Birth Date"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.891"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.371" />
+                app:layout_constraintVertical_bias="0.394" />
 
             <Button
                 android:id="@+id/updateBTN2"
@@ -209,10 +179,10 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintHorizontal_bias="0.722"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.879" />
+                app:layout_constraintVertical_bias="0.903" />
 
             <Button
                 android:id="@+id/addBTN2"
@@ -223,24 +193,10 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/updateBTN2"
-                app:layout_constraintHorizontal_bias="0.705"
+                app:layout_constraintHorizontal_bias="0.702"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.886" />
-
-            <Button
-                android:id="@+id/deleteBTN2"
-                android:layout_width="103dp"
-                android:layout_height="45dp"
-                android:backgroundTint="#2874D1"
-                android:text="Delete"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.392"
-                app:layout_constraintStart_toEndOf="@+id/updateBTN2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.884" />
+                app:layout_constraintVertical_bias="0.909" />
 
             <EditText
                 android:id="@+id/email"
@@ -255,21 +211,7 @@
                 app:layout_constraintHorizontal_bias="0.522"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.578" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="367dp"
-                android:layout_height="35dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.676" />
+                app:layout_constraintVertical_bias="0.637" />
 
             <Spinner
                 android:id="@+id/nationality"
@@ -278,10 +220,40 @@
                 android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/agencycode"
-                app:layout_constraintHorizontal_bias="0.758"
+                app:layout_constraintHorizontal_bias="0.733"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.479" />
+                app:layout_constraintVertical_bias="0.518" />
+
+            <EditText
+                android:id="@+id/agencycode"
+                android:layout_width="111dp"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="Agency Code"
+                android:inputType="number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/age"
+                app:layout_constraintHorizontal_bias="0.963"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.516" />
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="95dp"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.949"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.518" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
