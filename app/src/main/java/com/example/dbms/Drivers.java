@@ -398,6 +398,15 @@ public class Drivers extends AppCompatActivity {
             DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
             DBMS.push().setValue(add);
             Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
+
+            name.setText("");
+            licenseno.setText("");
+            weight.setText("");
+            height.setText("");
+            address.setText("");
+            agencycode.setText("");
+            dlcode.setText("");
+            conditions.setText("");
         }
         linum = "";
     }

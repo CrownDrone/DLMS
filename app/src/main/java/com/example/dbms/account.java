@@ -309,6 +309,14 @@ public class account extends AppCompatActivity {
                     }
                 });
 
+                fullname.setText("");
+                accountID.setText("");
+                address.setText("");
+                agencycode.setText("");
+                contactno.setText("");
+                age.setText("");
+                email.setText("");
+
             } else {
                 Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
             }
