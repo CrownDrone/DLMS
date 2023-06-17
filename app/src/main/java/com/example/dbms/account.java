@@ -81,6 +81,16 @@ public class account extends AppCompatActivity {
         aBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fullname.setText(null);
+                accountID.setText(null);
+                address.setText(null);
+                agencycode.setText(null);
+                contactno.setText(null);
+                age.setText(null);
+                email.setText(null);
+                dateButton.setText(null);
+                genders.setSelection(0);
+                national.setSelection(0);
                 back();
             }
         });
@@ -309,13 +319,16 @@ public class account extends AppCompatActivity {
                     }
                 });
 
-                fullname.setText("");
-                accountID.setText("");
-                address.setText("");
-                agencycode.setText("");
-                contactno.setText("");
-                age.setText("");
-                email.setText("");
+                fullname.setText(null);
+                accountID.setText(null);
+                address.setText(null);
+                agencycode.setText(null);
+                contactno.setText(null);
+                age.setText(null);
+                email.setText(null);
+                dateButton.setText(null);
+                genders.setSelection(0);
+                national.setSelection(0);
 
             } else {
                 Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
@@ -367,6 +380,16 @@ public class account extends AppCompatActivity {
                             Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    fullname.setText(null);
+                    accountID.setText(null);
+                    address.setText(null);
+                    agencycode.setText(null);
+                    contactno.setText(null);
+                    age.setText(null);
+                    email.setText(null);
+                    dateButton.setText(null);
+                    genders.setSelection(0);
+                    national.setSelection(0);
                 }
                 else{
                     System.out.println("Does not exists");

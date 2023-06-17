@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Homepage extends AppCompatActivity {
+
     private Button logout, licenseStats, drivers, account;
     TextView text;
     FirebaseAuth auth;
@@ -24,7 +25,6 @@ public class Homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_homepage);
-
         logout = (Button) findViewById(R.id.logout);
         licenseStats = (Button) findViewById(R.id.license);
         drivers = (Button) findViewById(R.id.Driver);
@@ -84,6 +84,7 @@ public class Homepage extends AppCompatActivity {
         Intent main = new Intent(this, Drivers.class);
         startActivity(main);
     }
+
     private void account(){
         Intent main = new Intent(this, account.class);
         startActivity(main);

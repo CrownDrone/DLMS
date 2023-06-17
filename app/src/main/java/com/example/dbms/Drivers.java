@@ -34,9 +34,9 @@ import java.util.Calendar;
 public class Drivers extends AppCompatActivity {
 
     private Button dBack,dateButton,licenseExp,addBTN,updateBTN,deleteBTn;  //dateButton is birthday button
-    private DatePickerDialog datePickerDialog,datePickerDialog1;
+    public DatePickerDialog datePickerDialog,datePickerDialog1;
 
-    private EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
+    public EditText name, weight, height, address,licenseno,agencycode,dlcode,conditions;
     Spinner blood,status1,eye,national,genders;
     public static String linum;
     ItemsModel itemsModel;
@@ -74,6 +74,7 @@ public class Drivers extends AppCompatActivity {
         addBTN = findViewById(R.id.addBTN);
         updateBTN= findViewById(R.id.updateBTN);
         deleteBTn = findViewById(R.id.deleteBTN);
+
 
         //pag may ganto, ito yung gumawa ako spinner at nag import ng static items sa loob para may choices
         String[] gender = new String[] {
@@ -237,6 +238,19 @@ public class Drivers extends AppCompatActivity {
         dBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                name.setText(null);
+                licenseno.setText(null);
+                weight.setText(null);
+                height.setText(null);
+                address.setText(null);
+                agencycode.setText(null);
+                dlcode.setText(null);
+                conditions.setText(null);
+                status1.setSelection(0);
+                genders.setSelection(0);
+                blood.setSelection(0);
+                national.setSelection(0);
+                eye.setSelection(0);
                 back();
             }
         });
@@ -399,14 +413,19 @@ public class Drivers extends AppCompatActivity {
             DBMS.push().setValue(add);
             Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
 
-            name.setText("");
-            licenseno.setText("");
-            weight.setText("");
-            height.setText("");
-            address.setText("");
-            agencycode.setText("");
-            dlcode.setText("");
-            conditions.setText("");
+            name.setText(null);
+            licenseno.setText(null);
+            weight.setText(null);
+            height.setText(null);
+            address.setText(null);
+            agencycode.setText(null);
+            dlcode.setText(null);
+            conditions.setText(null);
+            status1.setSelection(0);
+            genders.setSelection(0);
+            blood.setSelection(0);
+            national.setSelection(0);
+            eye.setSelection(0);
         }
         linum = "";
     }
@@ -459,6 +478,19 @@ public class Drivers extends AppCompatActivity {
                         };
                         Toast.makeText(Drivers.this, "Record Updated", Toast.LENGTH_SHORT).show();
                     }
+                    name.setText(null);
+                    licenseno.setText(null);
+                    weight.setText(null);
+                    height.setText(null);
+                    address.setText(null);
+                    agencycode.setText(null);
+                    dlcode.setText(null);
+                    conditions.setText(null);
+                    status1.setSelection(0);
+                    genders.setSelection(0);
+                    blood.setSelection(0);
+                    national.setSelection(0);
+                    eye.setSelection(0);
                 }
                 else{
                     System.out.println("Does not exists");
