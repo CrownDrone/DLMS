@@ -154,7 +154,7 @@ public class account extends AppCompatActivity {
             }
         });
 
-        // buong function nito is magset nung text sa editText sa accountView
+        // buong function nito is magset nsample3@email.comung text sa editText sa accountView
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
@@ -169,6 +169,7 @@ public class account extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addAccount();
+
             }
         });
         updateBTN2.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +238,9 @@ public class account extends AppCompatActivity {
         startActivity(homepage);
     }
 
+    private void clearText(){
 
+    }
     private void addAccount() {
         idnum = accountID.getText().toString();
         DBMS = FirebaseDatabase.getInstance().getReference();
