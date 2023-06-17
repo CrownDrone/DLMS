@@ -117,7 +117,7 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="phone"
+                android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.933"
