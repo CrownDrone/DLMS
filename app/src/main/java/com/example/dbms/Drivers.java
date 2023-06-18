@@ -412,20 +412,6 @@ public class Drivers extends AppCompatActivity {
             DBMS = FirebaseDatabase.getInstance().getReference().child("driver");
             DBMS.push().setValue(add);
             Toast.makeText(Drivers.this, "Added", Toast.LENGTH_SHORT).show();
-
-            name.setText(null);
-            licenseno.setText(null);
-            weight.setText(null);
-            height.setText(null);
-            address.setText(null);
-            agencycode.setText(null);
-            dlcode.setText(null);
-            conditions.setText(null);
-            status1.setSelection(0);
-            genders.setSelection(0);
-            blood.setSelection(0);
-            national.setSelection(0);
-            eye.setSelection(0);
         }
         linum = "";
     }
@@ -478,19 +464,6 @@ public class Drivers extends AppCompatActivity {
                         };
                         Toast.makeText(Drivers.this, "Record Updated", Toast.LENGTH_SHORT).show();
                     }
-                    name.setText(null);
-                    licenseno.setText(null);
-                    weight.setText(null);
-                    height.setText(null);
-                    address.setText(null);
-                    agencycode.setText(null);
-                    dlcode.setText(null);
-                    conditions.setText(null);
-                    status1.setSelection(0);
-                    genders.setSelection(0);
-                    blood.setSelection(0);
-                    national.setSelection(0);
-                    eye.setSelection(0);
                 }
                 else{
                     System.out.println("Does not exists");
@@ -675,6 +648,9 @@ public class Drivers extends AppCompatActivity {
 
     private void back(){
         Intent main = new Intent(this, Homepage.class);
+        forGate fg = new forGate();
+        fg.setPassLicense("");
+        finish();
         startActivity(main);
     }
 

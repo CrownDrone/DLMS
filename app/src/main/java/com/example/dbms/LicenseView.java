@@ -103,7 +103,7 @@ public class LicenseView extends AppCompatActivity {
 
                 }//EA SPORTS IT'S IN THE GAME
 
-                System.out.println("DBF225: "+ Arrays.toString(drivernamesB) +" "+Arrays.toString(licensesB)+" "+Arrays.toString(statusesB));
+                System.out.println("DM33: "+ Arrays.toString(drivernamesB) +" "+Arrays.toString(licensesB)+" "+Arrays.toString(statusesB));
                 System.out.println("3BM42: "+listitems); //print stuff so I know I'm not hallucinating
 
                 customAdapter.notifyDataSetChanged();//update listview
@@ -114,6 +114,7 @@ public class LicenseView extends AppCompatActivity {
 
             }
         });
+
 
         customAdapter = new CustomAdapter(listitems, this);
         listview.setAdapter(customAdapter);
@@ -182,26 +183,23 @@ public class LicenseView extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            passLicense = "";
-
             view = getLayoutInflater().inflate(R.layout.activity_custom_list_view, null);
             TextView txtView1= (TextView) view.findViewById(R.id.license);
             TextView txtView= (TextView) view.findViewById(R.id.drivername);
-
             TextView txtView2= (TextView) view.findViewById(R.id.status);
 
             txtView1.setText(itemsModelListFilter.get(i).getLicense());
             txtView.setText(itemsModelListFilter.get(i).getDrivername());
-
-            passLicense = itemsModelListFilter.get(i).getLicense();
             txtView2.setText(itemsModelListFilter.get(i).getStatus());
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    passLicense = "";
+                    passLicense = itemsModelListFilter.get(i).getLicense();
                     startActivity(new Intent(LicenseView.this, Drivers.class).putExtra("item",itemsModelListFilter.get(i)));
-                    forGate fg = new forGate();
                     System.out.println("pass onto "+passLicense);
+                    forGate fg = new forGate();
                     fg.setPassLicense(passLicense);
                 }
             });
@@ -245,7 +243,6 @@ public class LicenseView extends AppCompatActivity {
             return filter;
         }
     }
-
 
     private void back(){
         Intent main = new Intent(this, Homepage.class);

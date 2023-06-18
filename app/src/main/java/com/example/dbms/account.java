@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -49,20 +50,22 @@ public class account extends AppCompatActivity {
     ItemsModel1 itemsModel1;
     DatabaseReference DBMS;
     FirebaseAuth user;
+
+    forGate fg = new forGate();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        forGate fg = new forGate();
 
         setContentView(R.layout.activity_account);
+
+        idnum = "";
 
         aBack = (Button) findViewById(R.id.aBack);
         aBack2 = (Button) findViewById(R.id.aBack2);
         addBTN2 = (Button)  findViewById(R.id.addBTN2);
         updateBTN2= (Button) findViewById(R.id.updateBTN2);
-        //deleteBTN2 = (Button) findViewById(R.id.deleteBTN2);
 
         initDatePicker();
         dateButton = findViewById(R.id.birthday);
@@ -81,16 +84,6 @@ public class account extends AppCompatActivity {
         aBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fullname.setText(null);
-                accountID.setText(null);
-                address.setText(null);
-                agencycode.setText(null);
-                contactno.setText(null);
-                age.setText(null);
-                email.setText(null);
-                dateButton.setText(null);
-                genders.setSelection(0);
-                national.setSelection(0);
                 back();
             }
         });
@@ -300,7 +293,6 @@ public class account extends AppCompatActivity {
 
                 accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
                 DBMS = FirebaseDatabase.getInstance().getReference().child("account");
-                DBMS.push().setValue(add);
 
                 user = FirebaseAuth.getInstance();
                 String mail = String.valueOf((email.getText()));
@@ -309,7 +301,7 @@ public class account extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(account.this, "Account Successfully Created", Toast.LENGTH_SHORT).show();
-
+                        DBMS.push().setValue(add);
                         AlertDialog.Builder notif = new AlertDialog.Builder(account.this);
                         notif.setTitle("Login Information: ")
                                 .setMessage("Email: "+ emails+"\nPassword: "+contactnos)
@@ -317,19 +309,12 @@ public class account extends AppCompatActivity {
                                 .setNeutralButton("Ok", null);
                         notif.create().show();
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(account.this, "Email already used", Toast.LENGTH_SHORT).show();
+                    }
                 });
-
-                fullname.setText(null);
-                accountID.setText(null);
-                address.setText(null);
-                agencycode.setText(null);
-                contactno.setText(null);
-                age.setText(null);
-                email.setText(null);
-                dateButton.setText(null);
-                genders.setSelection(0);
-                national.setSelection(0);
-
             } else {
                 Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
             }
@@ -374,22 +359,12 @@ public class account extends AppCompatActivity {
                             accountAdder add = new accountAdder(names, accountIDs, adresss, agencycodes, contactnos, ages, emails, genderss, nationals, birth);
                             for (DataSnapshot ds : snapshot.getChildren()){
                                 ds.getRef().setValue(add);
-                                //3bm46
-                            };
-                        } else {
+                            }
+                        }
+                        else {
                             Toast.makeText(account.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    fullname.setText(null);
-                    accountID.setText(null);
-                    address.setText(null);
-                    agencycode.setText(null);
-                    contactno.setText(null);
-                    age.setText(null);
-                    email.setText(null);
-                    dateButton.setText(null);
-                    genders.setSelection(0);
-                    national.setSelection(0);
                 }
                 else{
                     System.out.println("Does not exists");
@@ -501,6 +476,8 @@ public class account extends AppCompatActivity {
 
     private void back(){
         Intent main = new Intent(this, Homepage.class);
+        this.finish();
+        fg.setPassID("");
         startActivity(main);
     }
 

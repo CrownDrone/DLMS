@@ -131,8 +131,6 @@ public class accountView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     public class CustomAdapter extends BaseAdapter implements Filterable {
 
         private List<ItemsModel1> itemsModelList;
@@ -162,7 +160,6 @@ public class accountView extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            passID = "";
 
             view = getLayoutInflater().inflate(R.layout.activity_custom_list_view1, null);
             TextView txtView1= (TextView) view.findViewById(R.id.accountid);
@@ -171,11 +168,11 @@ public class accountView extends AppCompatActivity {
             txtView1.setText(itemsModelListFilter.get(i).getAccountid());
             txtView.setText(itemsModelListFilter.get(i).getAccountname());
 
-            passID = itemsModelListFilter.get(i).getAccountid();
-
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    passID = "";
+                    passID = itemsModelListFilter.get(i).getAccountid();
                     startActivity(new Intent(accountView.this, account.class).putExtra("item",itemsModelListFilter.get(i)));
                     forGate fg = new forGate();
                     System.out.println("pass onto "+passID);
