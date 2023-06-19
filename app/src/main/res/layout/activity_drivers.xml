@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="842dp"
+            android:layout_width="match_parent"
             android:layout_height="806dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
-            android:layout_width="415dp"
+            android:layout_width="match_parent"
             android:layout_height="603dp"
             android:background="#861D3F73"
             android:textColor="@color/white"
